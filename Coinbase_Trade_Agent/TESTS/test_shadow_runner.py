@@ -94,4 +94,10 @@ class RunnerTests(unittest.TestCase):
                 self.assertEqual(store.active_candidates()[0]['state'],'ACTIVE')
                 self.assertEqual(p['cash'],'9899.9')
 
+    def test_complete_limit_schema_required(self):
+        config=json.loads(Path('CONFIG/SHADOW_CONFIG.json').read_text())
+        limits=json.loads(Path('CONFIG/HARD_LIMITS.json').read_text())
+        del limits['weekly_drawdown_pct']['soft']
+        with self.assertRaises(ValueError): r.validate_config(config,limits)
+
 if __name__=='__main__': unittest.main()

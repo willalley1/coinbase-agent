@@ -76,4 +76,27 @@ class SimulationTests(unittest.TestCase):
         self.assertTrue(state['uncertain'])
         self.assertLess(D(state['mae']),0)
 
+    def test_soft_risk_states_require_greater_selectivity(self):
+        import json
+        from pathlib import Path
+        limits=json.loads(Path('CONFIG/HARD_LIMITS.json').read_text())
+        self.assertTrue(hasattr(s,'risk_state'),'soft risk responses must be explicit')
+        p=dict(equity='9650',peak='10000',daily_start='9650',weekly_start='10000',loss_streak=0,open_risk='0',cash='9650')
+        self.assertEqual(s.risk_state(p,limits)['state'],'CAUTION')
+        self.assertEqual(s.risk_state(p,limits)['minimum_score'],80)
+        p.update(equity='9000',daily_start='9000',weekly_start='9000')
+        self.assertEqual(s.risk_state(p,limits)['state'],'SUSPENDED_REVIEW')
+
+    def test_stop_obligation_survives_insufficient_depth(self):
+        from SHADOW.models import MarketSnapshot,Book,FeeSnapshot,Candle
+        state=dict(signal_id='one',product_id='BTC-USD',strategy_id='trend',state='ACTIVE',opened_at=0,last_review=0,entry='100',quantity='2',fee='.001',
+                   entry_fee='.2',initial_risk='4.596',stop='98',target='106',due_at=3600,mae='0',mfe='0',uncertain=False)
+        bar=Candle(0,60,D(100),D(101),D(97),D(100),D(10)); fees=FeeSnapshot(D('.001'),D('.001'),0,'test')
+        first=MarketSnapshot('BTC-USD',70,{60:(bar,)},Book('BTC-USD',70,70,((D(100),D(1)),),((D(101),D(10)),)),{},fees)
+        s.advance(None,state,first)
+        second=MarketSnapshot('BTC-USD',130,{},Book('BTC-USD',130,130,((D(100),D(10)),),((D(101),D(10)),)),{},fees)
+        s.advance(None,state,second)
+        self.assertEqual(state['state'],'CLOSED')
+        self.assertTrue(state['exit_reason'].startswith('STOP'))
+
 if __name__=='__main__': unittest.main()

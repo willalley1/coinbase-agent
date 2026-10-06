@@ -41,4 +41,11 @@ class LearningTests(unittest.TestCase):
         self.assertEqual(result[0]['independent_count'],2)
         self.assertAlmostEqual(result[0]['net_mean'],.015)
 
+    def test_rule_versions_are_separate_cohorts(self):
+        rows=[dict(signal_id='a',product_id='BTC-USD',strategy_id='trend',rules_version='v1',horizon_minutes=5,status='OBSERVED',due_at=300,net_return='.01'),
+              dict(signal_id='b',product_id='BTC-USD',strategy_id='trend',rules_version='v2',horizon_minutes=5,status='OBSERVED',due_at=600,net_return='-.03')]
+        metrics=l.forward_metrics(rows)
+        self.assertEqual(len(metrics),2)
+        self.assertEqual({x['rules_version'] for x in metrics},{'v1','v2'})
+
 if __name__=='__main__': unittest.main()
