@@ -23,6 +23,18 @@ def bar_exit(bar,stop,target):
     if bar.high>=target: return ('TARGET',target)
     return None
 
+def risk_state(p,limits):
+    equity=D(p['equity']); dd=(1-equity/D(p['peak']))*100
+    weekly=(1-equity/D(p['weekly_start']))*100; daily=(1-equity/D(p['daily_start']))*100; streak=int(p['loss_streak'])
+    pd=limits['portfolio_drawdown_pct']; wd=limits['weekly_drawdown_pct']; ls=limits['loss_streak']; state='NORMAL'; reasons=[]
+    if dd>=D(str(pd['suspend_review'])): state='SUSPENDED_REVIEW'; reasons.append('PORTFOLIO_SUSPEND')
+    elif dd>=D(str(pd['defensive'])): state='DEFENSIVE_NO_NEW_RESEARCH_RISK'; reasons.append('PORTFOLIO_DEFENSIVE')
+    elif dd>=D(str(pd['risk_reduction'])) or streak>=ls['half_risk']: state='REDUCED_RISK'; reasons.append('DRAWDOWN_OR_STREAK_REDUCTION')
+    elif dd>=D(str(pd['warning'])) or weekly>=D(str(wd['soft'])) or streak>=ls['reassess']: state='CAUTION'; reasons.append('REASSESS_AND_INCREASE_SELECTIVITY')
+    if weekly>=D(str(wd['hard'])) or daily>=D(str(limits['daily_loss_limit_pct'])) or streak>=ls['halt_new_entries'] or p.get('halted'):
+        state='HALTED' if state!='SUSPENDED_REVIEW' else state; reasons.append('LOSS_LIMIT_OR_REVIEW_HALT')
+    return dict(state=state,reasons=reasons,minimum_score=80 if state!='NORMAL' else 70)
+
 def allowed_risk(p,limits,strategy):
     equity=D(p['equity']); peak=D(p['peak']); daily=D(p['daily_start']); weekly=D(p['weekly_start'])
     if equity<=0: return D(0)
@@ -42,6 +54,7 @@ def qualify(candidate,snapshot,portfolio,limits):
     fee=snapshot.fees.taker
     risk_pct=allowed_risk(portfolio,limits,candidate.strategy_id)
     if risk_pct<=0: return {'decision':'NO_TRADE','reasons':['PORTFOLIO_RISK_GATE']}
+    if candidate.score<risk_state(portfolio,limits)['minimum_score']: return {'decision':'NO_TRADE','reasons':['CAUTION_SELECTIVITY_GATE']}
     if snapshot.as_of>candidate.expires_at: return {'decision':'NO_TRADE','reasons':['EXPIRED']}
     unit_risk=candidate.entry-candidate.stop+fee*(candidate.entry+candidate.stop)+candidate.entry*D('.001')
     unit_reward=candidate.target-candidate.entry-fee*(candidate.target+candidate.entry)-candidate.entry*D('.001')
@@ -73,21 +86,30 @@ def advance(candidate,state,snapshot):
     now=snapshot.as_of; stop=D(state['stop']); target=D(state['target']); entry=D(state['entry'])
     quantity=D(state['quantity']); fee=D(state['fee']); last=int(state['last_review'])
     if now-last>120: state['uncertain']=True
-    bars=[b for b in snapshot.candles.get(60,()) if b.start>=last and b.start+b.seconds<=now]
+    cursor=int(state.get('last_bar_end',state['opened_at']))
+    bars=[b for b in snapshot.candles.get(60,()) if b.start+b.seconds>cursor and b.start+b.seconds<=now]
+    if bars:
+        if bars[0].start>cursor or bars[0].start<int(state['opened_at']): state['uncertain']=True
+        if any(b.start-a.start!=60 for a,b in zip(bars,bars[1:])): state['uncertain']=True
+        state['last_bar_end']=bars[-1].start+60
+    elif now-cursor>90: state['uncertain']=True
     if bars:
         state['mae']=str(min(D(state['mae']),min(b.low for b in bars)/entry-1))
         state['mfe']=str(max(D(state['mfe']),max(b.high for b in bars)/entry-1))
-    modeled=None
+    modeled=state.get('pending_exit')
     for bar in bars:
         result=bar_exit(bar,stop,target)
-        if result: modeled=(bar.start+60,result); break
+        if result:
+            if not modeled: modeled={'reason':result[0],'price':str(result[1]),'bar_end':bar.start+60}
+            break
+    if modeled: state['pending_exit']=modeled
     filled,price=walk_depth(snapshot.book.bids,quantity)
     if filled<quantity:
         state['uncertain']=True; state['last_review']=now
         return (PaperEvent(digest((state['signal_id'],now,'EXIT_LIQUIDITY')),state['signal_id'],now,'EXIT_LIQUIDITY_INSUFFICIENT',{'requested':str(quantity),'available':str(filled)}),)
     reason=None
     if modeled:
-        reason,modeled_price=modeled[1]
+        reason=modeled['reason']; modeled_price=D(modeled['price'])
         # Delayed quotes cannot establish a historical fill: adverse price wins.
         price=min(price,modeled_price)*(1-D('.001'))
         state['uncertain']=True
@@ -108,7 +130,7 @@ def markout(candidate,horizon,snapshot):
     due=int(candidate['opened_at'])+horizon*60
     error=snapshot.as_of-due
     result=dict(signal_id=candidate['signal_id'],product_id=candidate['product_id'],strategy_id=candidate['strategy_id'],horizon_minutes=horizon,due_at=due,observed_at=snapshot.as_of,
-                source='FORWARD_QUOTE_MARKOUT',independent_trade=False)
+                rules_version=candidate.get('rules_version','LEGACY_UNSPECIFIED'),source='FORWARD_QUOTE_MARKOUT',independent_trade=False)
     if error<0: return result|{'status':'NOT_DUE'}
     if error>30: return result|{'status':'UNAVAILABLE_LATE'}
     qty,exit_price=walk_depth(snapshot.book.bids,D(candidate['quantity']))

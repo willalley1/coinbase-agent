@@ -60,3 +60,11 @@ python -m compileall -q SHADOW
 ```
 
 No learning report changes strategy parameters or live permissions. Proposed hypotheses require a new research version and separate validation. Live execution remains APPROVAL_REQUIRED and disabled in this runner.
+
+## Initial implementation limits
+
+Full regime/session/score attribution, aggregated MAE/MFE/execution/compliance summaries and historical benchmark comparisons are not implemented in the first learning report. They are marked unavailable rather than estimated.
+Detector tests verify feature calculations, closed-bar boundaries and positive/negative condition gates, but full candle-to-candidate fixtures for all six families are still needed before promotion.
+Slow network collection can cause short-window quotes to arrive beyond their 30-second tolerance. Those records are marked unavailable. This lowers usable sample coverage; it does not create a synthetic fill.
+
+Independent review corrections verified by regression tests include candle-overlap stops, pending exits, transaction rollback accounting, quote validation, exact trailing-candle freshness, product refresh, rule-version cohorts, soft-risk responses and bounded raw buffers. Each entry scan saves the complete research source/config definition in DATA/shadow/definitions.

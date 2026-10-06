@@ -1,6 +1,6 @@
 # Coinbase spot shadow research engine — proposed design
 Date: 2026-10-05 America/New_York
-Status: written design approved by user October 5, 2026. Implementation plan pending review. No engine implemented or persistent process launched.
+Status: written design and Native execution approved by user October 5, 2026. Initial paper runner implemented and launched; two background scans verified. Learning reports have documented remaining validation/attribution limitations. No live execution enabled.
 
 ## Objective and boundaries
 Evaluate the six documented strategy families using fresh Coinbase spot data, collect prospective paper outcomes at 5, 15, 30 and 60 minutes, and identify positive net expectancy after actual fees and realistic execution assumptions.

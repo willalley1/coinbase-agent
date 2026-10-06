@@ -45,7 +45,7 @@ def select_windows(rows):
 def forward_metrics(rows):
     grouped=defaultdict(list)
     for r in rows:
-        if r['status']=='OBSERVED': grouped[(r['product_id'],r['strategy_id'],r['horizon_minutes'])].append(r)
+        if r['status']=='OBSERVED': grouped[(r['product_id'],r['strategy_id'],r['horizon_minutes'],r.get('rules_version','LEGACY_UNSPECIFIED'))].append(r)
     results=[]
     for key,values in grouped.items():
         clean=[]; next_start=0
@@ -54,14 +54,14 @@ def forward_metrics(rows):
             if start<next_start: continue
             next_start=r['due_at']
             clean.append(dict(r,day=datetime.fromtimestamp(start,timezone.utc).date().isoformat()))
-        results.append(dict(product_id=key[0],strategy_id=key[1],horizon_minutes=key[2],**outcome_metrics(clean)))
+        results.append(dict(product_id=key[0],strategy_id=key[1],horizon_minutes=key[2],rules_version=key[3],**outcome_metrics(clean)))
     return results
 
 def summarize(store,output_dir):
     output_dir=Path(output_dir); output_dir.mkdir(parents=True,exist_ok=True)
     signals=store.rows('signals'); closed=[r for r in signals if r.get('state')=='CLOSED']
     grouped=defaultdict(list)
-    for r in closed: grouped[r['strategy_id']].append(r)
+    for r in closed: grouped[r['strategy_id']+'/'+r.get('rules_version','LEGACY_UNSPECIFIED')].append(r)
     observations=store.rows('observations'); reasons=Counter(reason for r in observations for reason in r.get('reasons',[]))
     p=store.read_checkpoint('portfolio') or {}
     markouts=store.rows('markouts'); forward=forward_metrics(markouts)
@@ -79,6 +79,9 @@ def summarize(store,output_dir):
            '', 'Counterfactual quote observations include rejected research signals. These are not independently executed trades.',
            '', '## Synthetic portfolio','',dumps(p),'','## Fees','',dumps(evidence['fee_snapshot']),
            '', 'No automatic parameter changes. Historical results and forward quote evidence remain separate.']
+    text+=['','## Measures not yet implemented','',
+           'Regime/session/score attribution, aggregate MAE/MFE, execution-drag and compliance-rate summaries, historical baselines and independent primary cohort counts are unavailable in this first report. Do not treat the report as full validation.',
+           'Minute reviews can miss the 30-second markout tolerance on slow networks; unavailable marks are retained and never fabricated.']
     target=output_dir/'latest.md'; target.write_text('\n'.join(text)+'\n',encoding='utf-8')
     if markouts:
         keys=sorted({k for r in markouts for k in r})

@@ -1,0 +1,29 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Generated paper data, account observations and runtime state
+DATA/shadow/
+DATA/shadow_research/
+ANALYTICS/shadow/
+*.sqlite
+*.sqlite-*
+*.log
+*.pid
+*.lock
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db

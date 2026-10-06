@@ -29,7 +29,8 @@ def candle_errors(starts, seconds, as_of):
     if not starts: return ['MISSING_CANDLES']
     errors=[]
     if any(b-a!=seconds for a,b in zip(starts,starts[1:])): errors.append('CANDLE_GAP')
-    if as_of-(starts[-1]+seconds)>seconds+30: errors.append('STALE_CANDLES')
+    expected=((as_of-10)//seconds-1)*seconds
+    if starts[-1]<expected: errors.append('STALE_CANDLES')
     return errors
 
 def freshness_errors(source_time,fetched_at,fee_time,as_of):
@@ -38,8 +39,17 @@ def freshness_errors(source_time,fetched_at,fee_time,as_of):
     if as_of-fee_time>86400 or fee_time>as_of+5: errors.append('STALE_FEES')
     return errors
 
+def execution_errors(snapshot):
+    b=snapshot.book
+    errors=[e for e in freshness_errors(b.source_time,b.fetched_at,snapshot.fees.observed_at,snapshot.as_of) if e!='STALE_FEES']
+    if b.product_id!=snapshot.product_id: errors.append('BOOK_IDENTITY')
+    if not b.bids or not b.asks or b.bids[0][0]>=b.asks[0][0]: errors.append('INVALID_BOOK')
+    for levels in (b.bids,b.asks):
+        if any(not p.is_finite() or not q.is_finite() or p<=0 or q<=0 for p,q in levels): errors.append('INVALID_BOOK_LEVEL')
+    return tuple(sorted(set(errors)))
+
 def validate_snapshot(snapshot):
-    errors=freshness_errors(snapshot.book.source_time,snapshot.book.fetched_at,snapshot.fees.observed_at,snapshot.as_of)
+    errors=freshness_errors(snapshot.book.source_time,snapshot.book.fetched_at,snapshot.fees.observed_at,snapshot.as_of)+list(execution_errors(snapshot))
     for sec in GRANULARITIES:
         bars=snapshot.candles.get(sec,())
         if len(bars)<100: errors.append('INSUFFICIENT_HISTORY_'+str(sec))
@@ -48,6 +58,7 @@ def validate_snapshot(snapshot):
     if not b.bids or not b.asks or b.bids[0][0]>=b.asks[0][0]: errors.append('INVALID_BOOK')
     if snapshot.product.get('product_type')!='SPOT' or snapshot.product.get('status','').lower()!='online': errors.append('PRODUCT_NOT_TRADABLE')
     if snapshot.product.get('trading_disabled') or snapshot.product.get('view_only'): errors.append('PRODUCT_DISABLED')
+    if snapshot.product.get('_metadata_error') or snapshot.as_of-snapshot.product.get('_fetched_at',snapshot.as_of)>300: errors.append('STALE_PRODUCT_METADATA')
     if not (D(0)<=snapshot.fees.maker<D(1) and D(0)<=snapshot.fees.taker<D(1)): errors.append('INVALID_FEES')
     return tuple(sorted(set(errors)))
 
@@ -87,6 +98,7 @@ class CoinbasePublicClient:
 
     def get_book(self,product_id):
         raw=self.request('product_book',{'product_id':product_id,'limit':50})['pricebook']
+        if raw.get('product_id')!=product_id: raise ValueError('BOOK_IDENTITY')
         fetched=int(time.time())
         stamp=int(datetime.fromisoformat(raw['time'].replace('Z','+00:00')).timestamp())
         def levels(side,reverse):

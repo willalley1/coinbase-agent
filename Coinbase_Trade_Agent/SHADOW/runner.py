@@ -9,10 +9,10 @@ import json
 import os
 import time
 from .models import FeeSnapshot,MarketSnapshot,dumps,digest
-from .market_data import CoinbasePublicClient,GRANULARITIES,validate_snapshot,freshness_errors
+from .market_data import CoinbasePublicClient,GRANULARITIES,validate_snapshot,freshness_errors,execution_errors,candle_errors
 from .strategies import NAMES,evaluate
 from .storage import Store
-from .simulation import qualify,advance,markout,walk_depth
+from .simulation import qualify,advance,markout,walk_depth,risk_state
 from .learning import summarize,propose_hypotheses
 
 ROOT=Path(__file__).resolve().parent.parent
@@ -40,6 +40,11 @@ def validate_config(config,limits):
         for value in [limits['daily_loss_limit_pct'],*limits['weekly_drawdown_pct'].values(),*limits['portfolio_drawdown_pct'].values()]:
             if not D(0)<D(str(value))<=100: raise ValueError('LOSS_LIMIT')
         if not 0<limits['loss_streak']['half_risk']<limits['loss_streak']['halt_new_entries']: raise ValueError('LOSS_STREAK')
+        groups=[(limits['weekly_drawdown_pct'],('soft','hard')),(limits['portfolio_drawdown_pct'],('warning','risk_reduction','defensive','suspend_review')),
+                (limits['loss_streak'],('reassess','half_risk','halt_new_entries'))]
+        for group,keys in groups:
+            values=[D(str(group[k])) for k in keys]
+            if not all(a<b for a,b in zip(values,values[1:])) or values[0]<=0: raise ValueError('INVALID_THRESHOLD_ORDER')
         if not D(0)<D(config['synthetic_equity_usd']): raise ValueError('SYNTHETIC_EQUITY')
         if not config['products'] or any(not p.endswith('-USD') for p in config['products']): raise ValueError('SPOT_USD_ONLY')
     except (KeyError,TypeError): raise ValueError('INVALID_HARD_LIMITS_OR_CONFIG') from None
@@ -71,6 +76,7 @@ class Engine:
         self.root=Path(root)
         self.config_path=Path(config_path or self.root/'CONFIG'/'SHADOW_CONFIG.json')
         self.client=client or CoinbasePublicClient(); self.cache={}; self.products={}
+        self.strategy_source=(self.root/'SHADOW'/'strategies.py').read_text(encoding='utf-8')
         self.db=self.root/'DATA'/'shadow'/'paper.sqlite'
         self.reload()
 
@@ -79,12 +85,15 @@ class Engine:
         self.limits=json.loads((self.root/'CONFIG'/'HARD_LIMITS.json').read_text(encoding='utf-8'))
         validate_config(self.config,self.limits)
         self.rules=json.loads((self.root/'STRATEGIES'/'SHADOW_RESEARCH_RULES.json').read_text(encoding='utf-8'))
-        self.rules['implementation_sha256']=digest((self.root/'SHADOW'/'strategies.py').read_text(encoding='utf-8'))
+        self.rules['implementation_sha256']=digest(self.strategy_source)
         f=self.config['fee_snapshot']; self.fees=FeeSnapshot(D(f['maker']),D(f['taker']),int(f['observed_at']),f['source'])
 
     def collect(self,product,review=False):
         now=int(time.time()); candles={}
-        if product not in self.products: self.products[product]=self.client.get_product(product)
+        if not review or product not in self.products:
+            try: self.products[product]=dict(self.client.get_product(product),_fetched_at=now)
+            except Exception as exc:
+                self.products[product]=dict(self.products.get(product,{}),_metadata_error=type(exc).__name__+': '+str(exc))
         for sec in ([60] if review else GRANULARITIES):
             boundary=(now-10)//sec*sec
             key=(product,sec)
@@ -111,20 +120,22 @@ class Engine:
         return p
 
     def review_market(self,store,snapshot,p):
-        errors=freshness_errors(snapshot.book.source_time,snapshot.book.fetched_at,self.fees.observed_at,snapshot.as_of)
-        if 'STALE_BOOK' in errors: return
+        if execution_errors(snapshot): return
         for state in store.rows('signals'):
             if state['product_id']!=snapshot.product_id: continue
+            working=dict(p)
             with store.transaction():
                 if state['state']=='ACTIVE':
+                    minute_bars=snapshot.candles.get(60,())
+                    if candle_errors([b.start for b in minute_bars],60,snapshot.as_of): state['uncertain']=True
                     events=advance(None,state,snapshot)
                     store.append_events(events)
                     if state['state']=='CLOSED':
                         qty=D(state['quantity']); proceeds=qty*D(state['exit'])-D(state['exit_fee'])
-                        p['cash']=str(D(p['cash'])+proceeds)
-                        p['realized_equity']=str(D(p['realized_equity'])+D(state['net_pnl']))
-                        p['loss_streak']=int(p['loss_streak'])+1 if D(state['net_pnl'])<0 else 0
-                        if p['loss_streak']>=self.limits['loss_streak']['halt_new_entries']: p['halted']=True
+                        working['cash']=str(D(working['cash'])+proceeds)
+                        working['realized_equity']=str(D(working['realized_equity'])+D(state['net_pnl']))
+                        working['loss_streak']=int(working['loss_streak'])+1 if D(state['net_pnl'])<0 else 0
+                        if working['loss_streak']>=self.limits['loss_streak']['halt_new_entries']: working['halted']=True
                 for h in self.config['horizons_minutes']:
                     if h in state['markouts']: continue
                     row=markout(state,h,snapshot)
@@ -132,7 +143,8 @@ class Engine:
                         store.put('markouts',digest((state['signal_id'],h)),row)
                         state['markouts'].append(h)
                 store.put('signals',state['signal_id'],state,True)
-                store.checkpoint('portfolio',p)
+                store.checkpoint('portfolio',working)
+            p.clear(); p.update(working)
 
     def mark_equity(self,store,p):
         active=store.active_candidates(); value=D(p['cash']); risk=D(0)
@@ -145,50 +157,59 @@ class Engine:
             risk+=D(state['initial_risk'])
         p['equity']=str(value); p['peak']=str(max(value,D(p['peak']))); p['open_risk']=str(risk)
         p['drawdown_pct']=str((1-value/D(p['peak']))*100)
+        p['risk_state']=risk_state(p,self.limits)
         store.checkpoint('portfolio',p)
 
     def cycle(self,scan=True):
         self.reload(); start=int(time.time()); rows=[]; errors={}; successful=[]
         with Store(self.db) as store:
             p=self.portfolio(store,start); store.checkpoint('fees',asdict(self.fees))
+            definitions=self.db.parent/'definitions'; definitions.mkdir(exist_ok=True)
+            artifact=definitions/(digest(self.rules)+'.json')
+            if not artifact.exists(): artifact.write_text(dumps({'rules':self.rules,'strategy_source':self.strategy_source}),encoding='utf-8')
             tracked={s['product_id'] for s in store.rows('signals') if s['state']=='ACTIVE' or len(s['markouts'])<len(self.config['horizons_minutes'])}
             products=self.config['products'] if scan else [v for v in self.config['products'] if v in tracked]
             for product in products:
                 try:
                     snapshot=self.collect(product,review=not scan)
-                    store.checkpoint('quote:'+product,{'bid':str(snapshot.book.bids[0][0]),'timestamp':snapshot.as_of})
+                    book_issues=execution_errors(snapshot)
+                    store.save_snapshot(snapshot,self.client.raw)
+                    if book_issues: raise ValueError(','.join(book_issues))
+                    store.checkpoint('quote:'+product,{'bid':str(snapshot.book.bids[0][0]),'timestamp':snapshot.book.source_time})
                     self.review_market(store,snapshot,p); self.mark_equity(store,p)
                     if not scan: continue
                     issues=validate_snapshot(snapshot)
                     if issues: rows.extend(failed_market_rows(product,snapshot.as_of,','.join(issues))); errors[product]=','.join(issues); continue
-                    store.save_snapshot(snapshot,self.client.raw); self.client.raw=[]
                     successful.append(product)
                     for decision in evaluate(snapshot,self.rules):
                         row=dict(decision,product_id=product,as_of=snapshot.as_of)
                         candidate=row.pop('candidate',None)
                         if candidate:
+                            working=dict(p)
                             with store.transaction():
                                 duplicate=store.conn.execute('SELECT 1 FROM signals WHERE id=?',(candidate.signal_id,)).fetchone()
                                 overlap=any(s['product_id']==product and s['strategy_id']==candidate.strategy_id for s in store.active_candidates())
                                 if duplicate or overlap: row.update(decision='NO_TRADE',reasons=['DUPLICATE_OR_OVERLAPPING_SIGNAL'])
                                 else:
-                                    result=qualify(candidate,snapshot,p,self.limits); row.update(decision=result['decision'],reasons=result['reasons'])
+                                    result=qualify(candidate,snapshot,working,self.limits); row.update(decision=result['decision'],reasons=result['reasons'])
                                     # Every research trigger is retained, including fee/risk rejections, for diagnostic markouts.
                                     state=result.get('position')
                                     if state:
                                         store.put('signals',candidate.signal_id,state)
-                                        p['cash']=str(D(p['cash'])-D(state['quantity'])*D(state['entry'])-D(state['entry_fee']))
-                                        self.mark_equity(store,p)
+                                        working['cash']=str(D(working['cash'])-D(state['quantity'])*D(state['entry'])-D(state['entry_fee']))
+                                        self.mark_equity(store,working)
                                         store.put('events',digest((candidate.signal_id,'OPEN')),dict(event_type='PAPER_OPEN',timestamp=snapshot.as_of,signal_id=candidate.signal_id))
                                     else:
                                         store.put('events',digest((candidate.signal_id,'REJECT')),dict(event_type='SIGNAL_REJECTED',candidate=asdict(candidate),timestamp=snapshot.as_of,reasons=result['reasons']))
                                         store.put('signals',candidate.signal_id,dict(signal_id=candidate.signal_id,product_id=product,strategy_id=candidate.strategy_id,
                                                   rules_version=candidate.rules_version,state='OBSERVATION',opened_at=snapshot.as_of,entry=str(candidate.entry),quantity='1',
                                                   fee=str(self.fees.taker),markouts=[],candidate=asdict(candidate),rejection_reasons=result['reasons']))
+                            p.clear(); p.update(working)
                         rows.append(row)
                 except Exception as exc:
                     errors[product]=type(exc).__name__+': '+str(exc)
                     if scan: rows.extend(failed_market_rows(product,int(time.time()),errors[product]))
+                finally:
                     self.client.raw=[]
             now=int(time.time()); self.mark_equity(store,p)
             if scan:
