@@ -100,4 +100,34 @@ class RunnerTests(unittest.TestCase):
         del limits['weekly_drawdown_pct']['soft']
         with self.assertRaises(ValueError): r.validate_config(config,limits)
 
+    def test_product_metadata_refreshes_without_restart(self):
+        from SHADOW.models import Book
+        from decimal import Decimal as D
+        class Client:
+            raw=[]
+            calls=0
+            def get_product(self,product):
+                self.calls+=1
+                return dict(product_id=product,status='online',product_type='SPOT',trading_disabled=self.calls>1)
+            def get_candles(self,*args): return ()
+            def get_book(self,product):
+                now=int(r.time.time()); return Book(product,now,now,((D(100),D(1)),),((D(101),D(1)),))
+        engine=r.Engine(client=Client())
+        self.assertFalse(engine.collect('BTC-USD').product['trading_disabled'])
+        self.assertTrue(engine.collect('BTC-USD').product['trading_disabled'])
+
+    def test_rejected_snapshots_do_not_accumulate_raw_buffer(self):
+        from SHADOW.models import Book,MarketSnapshot,FeeSnapshot
+        from decimal import Decimal as D
+        engine=r.Engine()
+        now=int(r.time.time())
+        snap=MarketSnapshot('BTC-USD',now,{},Book('BTC-USD',now,now,((D(100),D(1)),),((D(101),D(1)),)),{},FeeSnapshot(D('.005'),D('.009'),now-90000,'stale'))
+        def collect(*args,**kwargs): engine.client.raw.append({'test':'response'}); return snap
+        with tempfile.TemporaryDirectory() as tmp:
+            engine.root=Path(tmp); engine.db=Path(tmp)/'DATA/shadow/paper.sqlite'
+            engine.config['products']=['BTC-USD']
+            with patch.object(engine,'reload'),patch.object(engine,'collect',side_effect=collect):
+                engine.cycle(); engine.cycle()
+            self.assertEqual(engine.client.raw,[])
+
 if __name__=='__main__': unittest.main()
