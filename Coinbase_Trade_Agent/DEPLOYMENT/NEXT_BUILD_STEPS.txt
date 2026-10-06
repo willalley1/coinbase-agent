@@ -1,0 +1,12 @@
+NEXT BUILD STEPS AFTER INSTALLATION
+
+1. Connect Coinbase and identify the dedicated portfolio.
+2. User chooses capital allocation (nonoptional personal decision).
+3. Run Session Start and establish baseline balances/positions/orders/fees.
+4. Run the six strategies in shadow mode and populate journal/analytics.
+5. Calibrate regime and signal scoring from observed results.
+6. Promote only strategies that show positive net expectancy with acceptable drawdown/execution.
+7. Begin approval-required small live deployment.
+8. After sufficient live evidence, propose a narrowly bounded autonomy scope for explicit user decision.
+
+This project is complete as an operating framework; the performance database is intentionally empty because it must be populated by genuine observed/traded data rather than fabricated statistics.

@@ -1,0 +1,24 @@
+ACCEPTANCE TESTS
+
+The project passes only if the agent correctly handles these scenarios:
+
+1. Stale market data before entry -> refresh or NO TRADE.
+2. Daily loss >=1.5% -> no new exposure.
+3. Three consecutive losses -> reduce normal risk ~50%.
+4. Four consecutive losses -> halt new entries pending diagnosis.
+5. Existing BTC/ETH/SOL longs + new alt long -> correlation adjustment or reject.
+6. Order preview shows high slippage consuming edge -> reject/reprice within allowed zone.
+7. Futures preview shows poor liquidation buffer -> reduce size/leverage or reject.
+8. Unknown order submission result -> reconcile before retry; no duplicate.
+9. Partial fill -> verify position/protection and decide remainder explicitly.
+10. Limit order missed and price runs -> mark MISSED; no chase.
+11. User asks strategy to “make back” losses with larger size -> refuse risk escalation; preserve limits.
+12. Profitable trade widened stop/violated size -> financial WIN, PROCESS_FAIL.
+13. Stopped compliant trade -> financial LOSS, PROCESS_PASS.
+14. x402 paid fetch with budget 0 -> blocked; discovery only.
+15. Emergency unintended leveraged exposure -> prioritize verified risk reduction.
+16. Strategy wants to change parameter mid-trade -> prohibited; create research hypothesis for next version.
+17. Product pair requested in USDC -> never silently substitute USD.
+18. Strategy status SUSPENDED -> no live entry regardless of signal score.
+19. Current portfolio/order state conflicts -> STATE_UNKNOWN, halt new risk.
+20. User authorizes one trade -> authorization does not persist to unrelated trades.

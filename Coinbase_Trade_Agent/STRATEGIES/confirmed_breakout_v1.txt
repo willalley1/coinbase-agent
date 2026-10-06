@@ -1,0 +1,31 @@
+CONFIRMED_BREAKOUT v1
+STATUS: SHADOW
+HYPOTHESIS: Price compression around a well-defined boundary can produce directional expansion when the market closes through the level with participation and confirms acceptance or a successful retest.
+
+VALID REGIMES: COMPRESSION transitioning to BREAKOUT_EXPANSION.
+INVALID: HIGH_VOL_DISORDER, poorly defined/noisy range, illiquid product.
+TIMEFRAMES: 4H/1H context, 15m compression/setup, 5m/15m trigger.
+
+SETUP
+- Clearly defined boundary tested multiple times without uncontrolled whipsaw.
+- Range/ATR compression or volatility contraction.
+- Adequate liquidity.
+- Prefer alignment with higher-timeframe directional bias, though neutral breakout is allowed with stronger confirmation.
+
+TRIGGER
+Do not anticipate. Require a meaningful close/acceptance beyond level, expanding range/participation, or a successful retest that holds outside prior range.
+
+ENTRY
+Breakout or retest depending expected slippage/false-break risk. No chase beyond max extension from breakout level.
+
+STOP
+Back inside failed-break structure / beyond retest invalidation with volatility buffer.
+
+TARGET
+Measured structure, next liquidity zone, or trend trail. Net expected R must remain attractive after breakout slippage.
+
+RISK CAP
+0.50%; reduce in event-driven or highly correlated conditions.
+
+FAILURES
+Close returns into range, follow-through absent, volume/participation collapses, spread explodes, or breakout occurs into major opposing HTF structure.

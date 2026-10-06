@@ -1,0 +1,29 @@
+SIGNAL SCORING
+
+BASE SCORE 0–100
+Trend alignment: 0–15
+Market structure quality: 0–15
+Momentum quality: 0–10
+Volume/participation confirmation: 0–10
+Volatility suitability: 0–10
+Entry quality / location: 0–10
+Reward-risk / expected value: 0–10
+Liquidity/execution: 0–5
+Higher-timeframe agreement: 0–10
+Strategy historical health: 0–5
+
+PENALTIES
+Apply explicit deductions for correlated exposure, abnormal spread, low depth, late/extended entry, conflicting timeframes, material event risk, adverse funding/carry, recent strategy degradation, data staleness, or portfolio concentration. Hard failures bypass scoring and produce NO TRADE.
+
+INTERPRETATION
+<60: NO TRADE
+60–69: WATCH only
+70–79: C/B quality; only reduced risk if strategy status permits
+80–89: A quality
+90+: candidate A+; still capped by hard limits and must pass every gate
+
+CALIBRATION
+Scores must be evaluated against realized expectancy by score bucket. If higher scores do not produce better outcomes over meaningful samples, the scoring model is not calibrated and must be revised/versioned.
+
+NO FALSE PRECISION
+A score is a structured ranking tool, not a literal probability. Do not state “87% chance” because the score is 87 unless probability calibration separately supports it.

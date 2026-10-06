@@ -1,0 +1,21 @@
+STRATEGY HEALTH
+
+STATES
+HEALTHY, WATCH, DEGRADED, SUSPENDED, QUARANTINED.
+
+INPUTS
+Rolling/lifetime expectancy, profit factor, drawdown, win-rate and R-distribution shift, execution drag, signal calibration, regime mix, rule compliance, sample size.
+
+HEALTHY
+Recent performance broadly consistent with validated edge and process quality.
+WATCH
+Meaningful deterioration but insufficient evidence of edge failure; reduce aggressiveness/selectivity as appropriate.
+DEGRADED
+Recent expectancy/process or drawdown materially worse than historical baseline; reduce allocation/risk and investigate.
+SUSPENDED
+No new live trades until review/validation.
+QUARANTINED
+Used after serious execution/state/rule incident or unresolved anomaly.
+
+NO SHORT-TERM OVERREACTION
+Consecutive losses alone are not proof of edge failure. Compare the streak and rolling results to the strategy's expected distribution.

@@ -1,0 +1,28 @@
+RANGE_MEAN_REVERSION v1
+STATUS: SHADOW
+HYPOTHESIS: In stable non-trending markets, repeated deviations to established range boundaries can revert toward fair value when trend persistence is low and boundaries remain respected.
+
+VALID REGIMES: RANGE with low-to-normal volatility.
+INVALID: BREAKOUT_EXPANSION, STRONG trend, HIGH_VOL_DISORDER.
+TIMEFRAMES: 1H range definition, 15m setup, 5m confirmation.
+
+SETUP
+- At least two meaningful reactions define each relevant boundary or equivalent robust structure.
+- Trend measures/slopes broadly flat; price oscillates around fair value.
+- Entry near boundary, not middle of range.
+- Momentum oscillator extremes may support but never define the setup alone.
+
+TRIGGER
+Rejection/failed break of boundary plus lower-timeframe structure returning into range.
+
+STOP
+Outside range failure point with volatility buffer.
+
+TARGET
+First target near range midpoint; optional second target near opposite boundary if structure remains intact.
+
+RISK CAP
+0.35% initially because regime transitions create asymmetric failure risk.
+
+FAILURES
+Accepted breakout, expanding volume/range outside boundary, major event shock, deteriorating liquidity.

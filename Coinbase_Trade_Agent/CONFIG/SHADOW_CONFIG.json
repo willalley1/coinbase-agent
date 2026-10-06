@@ -1,0 +1,14 @@
+{
+  "paper_only": true,
+  "products": ["BTC-USD", "ETH-USD", "SOL-USD", "XRP-USD", "DOGE-USD", "SUI-USD", "NEAR-USD", "HYPE-USD", "ZEC-USD"],
+  "horizons_minutes": [1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240],
+  "synthetic_equity_usd": "10000",
+  "fee_snapshot": {"maker": "0.005", "taker": "0.009", "observed_at": 1791253593, "source": "connected Coinbase fees refreshed 2026-10-06T02:26:33Z"},
+  "scan_seconds": 300,
+  "position_review_seconds": 60,
+  "history_days": 14,
+  "primary_minutes": 60,
+  "swing_primary_minutes": 2880,
+  "cluster_risk_pct": "1.0",
+  "minimum_net_reward_risk": "1.5"
+}

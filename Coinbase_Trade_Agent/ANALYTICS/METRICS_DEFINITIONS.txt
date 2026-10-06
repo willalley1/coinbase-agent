@@ -1,0 +1,17 @@
+METRICS DEFINITIONS
+
+R: initial planned risk dollars for a trade. Realized_R = net_pnl / initial_risk_dollars.
+Expectancy_R = win_rate*avg_win_R - loss_rate*abs(avg_loss_R), calculated net of costs when possible.
+Profit_Factor = gross winning PnL / abs(gross losing PnL).
+MAE = maximum adverse excursion from entry during trade, measured in price %, dollars, and preferably R.
+MFE = maximum favorable excursion from entry during trade.
+Max_Drawdown = maximum peak-to-trough equity decline.
+Recovery_Factor = net profit / max drawdown (same unit basis).
+Execution_Drag = fees + spread/slippage + funding/carry + other measurable execution costs.
+Sharpe-like = excess/strategy return divided by total return volatility; diagnostic only.
+Sortino-like = return divided by downside deviation; diagnostic only.
+Process_Score = adherence score independent of PnL.
+Calibration = relationship between signal/confidence buckets and realized outcome frequency/expectancy.
+
+CAUTION
+Do not treat a metric as meaningful without sufficient sample size and regime coverage. A profit factor of 3 across 8 trades is weak evidence.

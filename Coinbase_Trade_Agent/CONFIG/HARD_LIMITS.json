@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "risk_per_trade_pct": {
+    "default": 0.5,
+    "absolute_max": 0.75,
+    "experimental_default": 0.25
+  },
+  "daily_loss_limit_pct": 1.5,
+  "weekly_drawdown_pct": {
+    "soft": 3.0,
+    "hard": 4.0
+  },
+  "portfolio_drawdown_pct": {
+    "warning": 5.0,
+    "risk_reduction": 6.0,
+    "defensive": 8.0,
+    "suspend_review": 10.0
+  },
+  "loss_streak": {
+    "reassess": 2,
+    "half_risk": 3,
+    "halt_new_entries": 4
+  },
+  "leverage": {
+    "normal_max": 3.0,
+    "exceptional_validated_max": 5.0,
+    "hard_default_max": 10.0
+  },
+  "paid_data_budget_usdc": 0.0,
+  "allow_martingale": false,
+  "allow_unplanned_averaging_down": false,
+  "allow_liquidation_as_stop": false,
+  "allow_blind_retry_unknown_order": false
+}

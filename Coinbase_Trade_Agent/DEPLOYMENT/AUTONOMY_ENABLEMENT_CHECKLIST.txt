@@ -1,0 +1,16 @@
+AUTONOMY ENABLEMENT CHECKLIST
+
+Do not enable bounded autonomy until all are true:
+[ ] User explicitly authorizes autonomous live execution.
+[ ] Authorized portfolio is unambiguous.
+[ ] Authorized product/asset scope is defined.
+[ ] Authorized strategy/version list is defined and validated.
+[ ] Per-trade, daily, weekly, drawdown, leverage, and cluster limits are active.
+[ ] Strategy has sufficient representative evidence and acceptable execution drag.
+[ ] Duplicate-order / state-unknown safeguards tested.
+[ ] Emergency risk-reduction path tested.
+[ ] Journal/analytics are operational.
+[ ] Paid-data budget is separately defined or remains zero.
+[ ] Revocation/stop condition is clear.
+
+Recommended first autonomous scope: one or two highly liquid products, one validated strategy, 0.25% risk/trade, strict daily loss limit, short review interval.

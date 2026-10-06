@@ -1,0 +1,36 @@
+REGIME CLASSIFICATION
+
+PRIMARY REGIMES
+- STRONG_UPTREND
+- WEAK_UPTREND
+- STRONG_DOWNTREND
+- WEAK_DOWNTREND
+- RANGE
+- COMPRESSION
+- BREAKOUT_EXPANSION
+- HIGH_VOL_DISORDER
+- ILLIQUID_ABNORMAL
+
+FEATURES
+Use a combination of:
+- market structure: HH/HL vs LH/LL, range boundaries, breaks/reclaims
+- moving-reference slope/alignment (e.g., EMA 20/50/200 where enough history exists)
+- ADX/trend persistence as supporting evidence
+- ATR / realized-volatility percentile
+- volume participation and expansion/contraction
+- distance from trend reference (extension)
+- spread and depth quality
+
+CLASSIFICATION GUIDANCE
+STRONG_UPTREND: persistent HH/HL, positive slopes/alignment, pullbacks respected, healthy participation.
+WEAK_UPTREND: upward bias but frequent overlap / weaker trend persistence.
+STRONG_DOWNTREND: persistent LH/LL, negative slopes/alignment, rallies sold.
+WEAK_DOWNTREND: downward bias with overlap.
+RANGE: repeated boundary rejections, flat/low trend persistence, contained volatility.
+COMPRESSION: narrowing range/ATR/volatility, balanced price, potential energy buildup.
+BREAKOUT_EXPANSION: price exits prior structure with expanding range/participation and follow-through.
+HIGH_VOL_DISORDER: large erratic swings, weak directional persistence, frequent structure failure, poor stop reliability.
+ILLIQUID_ABNORMAL: spread/depth/prints unsuitable for reliable execution.
+
+CONFIDENCE
+Return regime + confidence + supporting features + contradictory features. If ambiguous, reduce strategy eligibility and risk; do not force classification.

@@ -1,0 +1,62 @@
+COINBASE MCP TOOL POLICY
+
+GENERAL
+Use Coinbase live tools as the execution source of truth. Tool availability can change; never invent a missing capability. If a required tool is unavailable, degrade safely or stop.
+
+READ / DISCOVERY TOOLS
+- coinbase_portfolios_list: enumerate portfolios and IDs.
+- coinbase_portfolios_get: portfolio metadata, balances, spot/equity/futures positions.
+- coinbase_balance: available and held balances for one portfolio.
+- coinbase_products_list / get: product availability, status, increments, futures details when available.
+- coinbase_products_best_bid_ask: current best bid/ask.
+- coinbase_products_book: liquidity/order-book depth.
+- coinbase_products_candles: historical OHLCV.
+- coinbase_products_ticker: recent trade prints and current bid/ask.
+- coinbase_fees: current maker/taker tier and fee context.
+- coinbase_orders_list / get / fills: open/history order state, fills, commissions, maker/taker evidence.
+- coinbase_x402_resources: paid-resource discovery only; spends nothing.
+
+PREVIEW TOOLS
+- coinbase_orders_preview: mandatory for normal new live exposure when available; estimate fees, fill, slippage, and for supported derivatives margin/leverage/liquidation impact.
+- coinbase_orders_edit_preview: use before material risk-increasing order edits when available.
+
+EXPOSURE-CREATING / MONEY-MOVING TOOLS
+- coinbase_orders_create: live order creation; must pass permission and risk gate.
+- coinbase_orders_edit: may alter size/price/exits; treat size increases or risk-widening edits like new exposure. Read current order first. When updating attached exits, preserve both legs if required by tool semantics.
+- coinbase_convert_execute: moves funds through USD/USDC conversion; requires valid quote and permission.
+- coinbase_transfer: moves funds between portfolios; never use without explicit funding/transfer authorization.
+- coinbase_x402_pay: spends/authorizes Base USDC; disabled unless explicit paid-data budget and resource use are authorized.
+- coinbase_x402_fetch: may automatically pay on a 402 challenge; therefore treat as spend-capable, not read-only. Disabled when paid-data budget is zero.
+
+RISK-REDUCING / ORDER-STATE TOOLS
+- coinbase_orders_cancel: cancel stale/invalid open orders; verify result per order.
+- coinbase_orders_close_position: closes/partially closes an open position. Prefer preview when time permits, but emergency risk reduction may prioritize exit certainty.
+
+ACCOUNT ADMINISTRATION
+- coinbase_portfolios_create/edit/delete: do not use casually. Create/rename/delete portfolios only from explicit project setup/account-administration instructions. Deletion is destructive and requires explicit user intent.
+
+ORDER CREATION RULES
+1. Resolve intended portfolio and quote currency. If user specifies USD or USDC, use that pair; never silently substitute. If unspecified, check balances; when both are available, prefer USDC where the relevant product exists, consistent with tool guidance.
+2. Verify product exists and is tradable.
+3. Verify balance/buying power and current positions.
+4. Check open orders to prevent duplicates/conflicts.
+5. Obtain fresh bid/ask and strategy-required market data.
+6. Calculate size from risk.
+7. Preview order.
+8. Inspect warnings/errors; for derivatives inspect leverage, margin ratio changes, buying power, notional limits, and liquidation buffer/price when provided.
+9. Re-run final gate.
+10. Execute only if current permission allows.
+11. Immediately verify order with orders_get/list and fills.
+12. Confirm resulting position and attached protection.
+
+IDEMPOTENCY / AMBIGUOUS OUTCOMES
+Use a stable unique client_order_id for each intended order where supported. If an order submission outcome is unknown, do NOT generate a second client_order_id and resubmit. Query orders, fills, positions, and balances first. Only retry after proving the first order did not create exposure.
+
+PARTIAL FILLS
+A submitted order is not assumed filled. Reconcile filled size, remaining open quantity, fees, and protection. If partial position exists, ensure its risk is controlled before deciding what to do with remainder.
+
+PAID DATA
+Discovery through x402_resources is allowed. Paid calls are disabled by default. If budget is authorized, use the smallest useful resource and smallest effective spend cap; log provider/resource, reason, cost, and expected decision value. Paid data may improve context but cannot override hard risk rules.
+
+ADMIN VS TRADING CAPITAL
+Transfers and conversions are separate from strategy execution. Do not move capital simply because a strategy wants more buying power. Lack of authorized buying power means NO TRADE or user funding decision.

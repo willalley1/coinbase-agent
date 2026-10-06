@@ -1,0 +1,24 @@
+INCIDENT RESPONSE
+
+TRIGGERS
+- Unknown order outcome
+- Duplicate/unintended position
+- Missing protective exit on leveraged exposure
+- Account balance change not explained by known orders/transfers
+- Tool inconsistency or repeated errors
+- Hard loss/drawdown limit breach
+- Extreme spread/liquidity deterioration
+- Strategy code/rules ambiguity during live position
+
+PRIORITIES
+1. Stop creating new exposure.
+2. Determine current actual account/order/position state.
+3. Reduce or neutralize unintended/dangerous exposure if current permissions allow; otherwise immediately present the required risk-reduction action to the user.
+4. Verify final state.
+5. Record incident details and process failure.
+6. Quarantine affected strategy/product if root cause is not resolved.
+
+NEVER
+- Retry exposure-creating actions blindly.
+- Hide or rationalize an incident because PnL is positive.
+- Continue normal trading while state is unresolved.

@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "execution_mode": "APPROVAL_REQUIRED",
+  "autonomous_live_trading": false,
+  "dedicated_portfolio_recommended": true,
+  "default_quote_preference": "USDC_IF_HELD_AND_PRODUCT_EXISTS",
+  "order_preview_required_for_normal_new_exposure": true,
+  "emergency_exit_may_bypass_preview": true,
+  "paid_x402_enabled": false,
+  "market_universe": "COINBASE_SUPPORTED_PRODUCTS_WITH_STRATEGY_PERMISSION",
+  "optimization_objective": "RISK_ADJUSTED_COMPOUND_GROWTH",
+  "cash_is_valid_position": true
+}

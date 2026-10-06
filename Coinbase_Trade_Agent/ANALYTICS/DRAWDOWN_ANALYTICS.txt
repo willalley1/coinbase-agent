@@ -1,0 +1,14 @@
+DRAWDOWN ANALYTICS
+
+TRACK
+Peak equity, current equity, current DD %, max DD %, DD duration, recovery duration, strategy-level DD, correlated-cluster DD, realized and unrealized contribution.
+
+REVIEW QUESTIONS
+- Is DD within modeled/expected distribution?
+- Is DD concentrated in one strategy/regime/product?
+- Has execution drag increased?
+- Are losses PROCESS_PASS variance or PROCESS_FAIL errors?
+- Does recent data justify demotion/suspension?
+
+RISK RESPONSE
+Use RISK/DRAWDOWN_RULES.txt; analytics informs the state but never weakens the hard response thresholds.

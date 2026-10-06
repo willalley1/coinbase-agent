@@ -1,0 +1,31 @@
+TREND_PULLBACK v1
+STATUS: SHADOW
+HYPOTHESIS: Established trends frequently resume after orderly pullbacks into structurally meaningful zones when trend structure, participation, and momentum remain intact.
+
+VALID REGIMES: STRONG_UPTREND, WEAK_UPTREND selectively, STRONG_DOWNTREND for products where shorting is permitted.
+INVALID: RANGE, HIGH_VOL_DISORDER, ILLIQUID_ABNORMAL.
+TIMEFRAMES: 4H context, 1H regime, 15m setup, 5m trigger for intraday use.
+
+SETUP
+- Higher timeframe structure aligned with direction (HH/HL for long; LH/LL for short).
+- Pullback into prior breakout/support-resistance, 20/50 EMA zone, VWAP-like fair-value area if available, or a prior swing structure.
+- Pullback should show contraction/overlap rather than aggressive opposite-direction expansion.
+- Trend should not be excessively extended at entry.
+
+TRIGGER
+Evidence of resumption: lower-timeframe structure break back with trend, reclaim/rejection candle close, momentum turn, and preferably volume re-expansion.
+
+ENTRY
+Use limit/retest entry when available; avoid chasing beyond strategy entry zone. If price leaves zone without fill, mark MISSED.
+
+INVALIDATION / STOP
+Beyond the swing/structure that defines the pullback thesis, with volatility buffer where appropriate. Do not place stop simply at a round number or arbitrary percentage.
+
+TARGET
+Primary target at next meaningful liquidity/structure level with positive net expectancy. Trend runner may trail behind validated structure/ATR method. Partial exits are optional and must be tracked for expectancy.
+
+RISK CAP
+0.50% default; up to 0.75% only after validation and A+ evidence. Drawdown/cluster modifiers reduce risk.
+
+FAILURES
+Deep impulsive pullback that damages HTF structure; weak resumption volume; adverse regime shift; spread/slippage excessive; entry too extended.

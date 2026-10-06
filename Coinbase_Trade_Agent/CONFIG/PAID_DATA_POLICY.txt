@@ -1,0 +1,13 @@
+PAID DATA POLICY
+
+Default paid_data_budget_usdc = 0.
+coinbase_x402_resources discovery is allowed because it spends nothing.
+coinbase_x402_fetch and coinbase_x402_pay are spend-capable and prohibited unless the user explicitly authorizes a budget/scope.
+
+When enabled:
+- choose the least expensive resource that materially improves a decision
+- set the smallest sufficient max_amount
+- record resource/provider, purpose, expected value, and actual/authorized cost
+- do not repeatedly buy near-duplicate data
+- paid data never bypasses risk controls
+- stop purchases when session/daily/project budget is exhausted

@@ -1,0 +1,9 @@
+1.0.0
+- Initial complete Coinbase Trade Agent project architecture.
+- Added short master Project Instructions and consolidated Deep Operating Manual.
+- Added capital preservation/risk constitution, permission model, Coinbase MCP policy, execution/state/incident rules.
+- Added market regime, signal scoring, trade selection, event risk frameworks.
+- Added risk sizing/drawdown/leverage/exposure/kill switches.
+- Added six initial strategy specifications and strategy lifecycle.
+- Added analytics, calibration, execution attribution, Monte Carlo policy.
+- Added trade journal schema, CSV data templates, workflows, acceptance/failure tests, deployment/autonomy checklists.

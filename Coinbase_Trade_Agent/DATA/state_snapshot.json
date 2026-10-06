@@ -1,0 +1,15 @@
+{
+  "timestamp": null,
+  "portfolio_id": null,
+  "equity": null,
+  "available_balances": {},
+  "positions": [],
+  "open_orders": [],
+  "daily_loss_pct": 0,
+  "weekly_drawdown_pct": 0,
+  "portfolio_drawdown_pct": 0,
+  "loss_streak": 0,
+  "risk_state": "UNKNOWN",
+  "execution_mode": "APPROVAL_REQUIRED",
+  "notes": "Populate from live state at session start."
+}

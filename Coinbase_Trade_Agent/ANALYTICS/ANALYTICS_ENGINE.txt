@@ -1,0 +1,16 @@
+ANALYTICS ENGINE
+
+PERFORMANCE ORDER
+Capital survival -> rule compliance -> execution quality -> expectancy -> drawdown -> robustness -> risk-adjusted return -> absolute return.
+
+MANDATORY AGGREGATIONS
+By strategy/version, product, regime, direction, timeframe, session/hour/day, volatility bucket, signal-score bucket, maker/taker, leverage bucket, and permission mode.
+
+ROLLING WINDOWS
+Track recent 10/20/30/50/100 trades where sample exists plus lifetime and recency-weighted statistics.
+
+CORE METRICS
+Trade count, win/loss rate, avg/median winner and loser in R, expectancy, profit factor, gross/net PnL, max/current drawdown, drawdown duration, recovery factor, Sharpe-like and Sortino-like metrics where sample allows, MAE/MFE, holding time, fee/slippage/funding drag, rule-compliance/process score.
+
+LEARNING PRINCIPLE
+Never change live rules directly from a short run of outcomes. Convert observations into hypotheses, create a new strategy/version, test out-of-sample/walk-forward, shadow it, then promote only with evidence.

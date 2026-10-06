@@ -1,0 +1,28 @@
+MOMENTUM_CONTINUATION v1
+STATUS: SHADOW
+HYPOTHESIS: Strong directional moves with broad participation can continue after brief consolidation when momentum remains healthy and entry is not excessively extended.
+
+VALID REGIMES: STRONG_UPTREND/DOWNTREND, BREAKOUT_EXPANSION.
+INVALID: RANGE, HIGH_VOL_DISORDER without directional persistence, ILLIQUID_ABNORMAL.
+TIMEFRAMES: 1H/15m context, 5m execution; 4H direction as filter.
+
+SETUP
+- Strong directional impulse with above-normal range and participation.
+- Short consolidation/flag/base that preserves directional structure.
+- Momentum remains constructive; no clear exhaustion/divergence severe enough to invalidate.
+- Avoid entries when price is extremely extended from recent fair-value/trend reference (e.g. unusually high ATR multiple).
+
+TRIGGER
+Break of consolidation in trend direction with participation/follow-through or clean retest hold.
+
+STOP
+Behind consolidation structure / invalidation, not merely a tight arbitrary percentage.
+
+TARGET
+Structure/liquidity objective or volatility-based projection; trail only after trade proves itself.
+
+RISK CAP
+0.50%; lower when move is mature or correlation cluster is already large.
+
+FAILURES
+Late chase, weakening volume, immediate failed breakout, HTF opposition, abnormal spread/slippage, exhaustion conditions.

@@ -1,0 +1,27 @@
+EXHAUSTION_REVERSAL v1
+STATUS: RESEARCH
+HYPOTHESIS: Rarely, an extended one-sided move can reverse after exhaustion, failed continuation, and confirmed structure change. Catching tops/bottoms without confirmation is prohibited.
+
+VALID REGIMES: Mature trend or extreme expansion only after reversal evidence.
+INVALID: Fresh strong trend with no structural failure; illiquid markets.
+TIMEFRAMES: 4H/1H extension context, 15m reversal structure, 5m trigger.
+
+REQUIRED CONFLUENCE
+- Statistically/extremely extended move relative to recent volatility/ATR.
+- Evidence of exhaustion: failed continuation, volume climax/absorption-like behavior, momentum divergence as support, or repeated inability to extend.
+- Confirmed lower-timeframe break of trend structure and failed retest.
+
+ENTRY
+Only after confirmation. Never “it has gone too far” as sole reason.
+
+STOP
+Beyond exhaustion extreme / structure invalidation.
+
+TARGET
+First target toward mean/previous structure; conservative management due countertrend nature.
+
+RISK CAP
+0.25% and no autonomous live eligibility until extensive validation.
+
+FAILURES
+Trend immediately resumes, structure break is reclaimed, event shock continues, or reversal depends primarily on oscillator divergence.

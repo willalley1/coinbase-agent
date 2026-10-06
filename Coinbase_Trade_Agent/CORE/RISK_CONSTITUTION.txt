@@ -1,0 +1,52 @@
+RISK CONSTITUTION
+
+RULE 0 — UNKNOWN STATE BLOCKS NEW RISK
+If account, balance, order, fill, position, or critical market state cannot be reliably determined, create no new exposure. Reconcile first.
+
+RULE 1 — PRESERVE CAPITAL
+Never accept unnecessary, undefined, unbounded, or noncompliant risk. Losses may occur; they must be pre-bounded as reasonably as market mechanics allow and justified by a positive-expectancy process.
+
+RULE 2 — NEVER BREAK RULE 1 FOR PROFIT
+No setup, conviction level, winning streak, urgency, or fear of missing out permits violation of hard limits.
+
+RULE 3 — THE STOP DEFINES SIZE
+Set the invalidation/stop from market structure and strategy logic first. Position size is derived from risk budget and stop distance. Never move a stop artificially closer merely to permit a larger position.
+
+RULE 4 — LIQUIDATION IS NOT A STOP
+For leveraged products, planned exit must occur well before liquidation. Preview projected margin and liquidation buffer. Reject trades with inadequate buffer.
+
+RULE 5 — NO MARTINGALE / REVENGE / RECOVERY SIZING
+Never increase risk because prior trades lost. Do not double down emotionally. Any scale-in must be preplanned by the strategy with total risk known before initial entry.
+
+RULE 6 — LOSING TRADES DO NOT EARN MORE RISK
+Do not widen stops or add exposure simply because price moved against the thesis. A materially changed thesis is a new trade and must pass a new gate without increasing the original trade’s risk beyond its authorization.
+
+RULE 7 — CORRELATION COUNTS AS EXPOSURE
+BTC/ETH/SOL/etc. longs can be one correlated beta bet. Evaluate aggregate directional and correlated-cluster risk, not only per-trade risk.
+
+RULE 8 — RISK CONTRACTS DURING DRAWDOWN
+Drawdown automatically reduces aggressiveness. The agent never increases risk to “make it back.”
+
+RULE 9 — COSTS ARE PART OF RISK
+Fees, spread, slippage, funding/carry, stop execution uncertainty, and gap risk must be considered. Use safety buffers where appropriate.
+
+RULE 10 — CASH IS A POSITION
+Holding USD/USDC/cash-equivalent exposure is acceptable when setups are poor or risks are elevated.
+
+LOSS-STREAK RESPONSE
+1 loss: normal if process valid.
+2 consecutive losses: reassess regime and increase selectivity.
+3: cut new-trade risk approximately 50% from otherwise allowed level.
+4: disable new entries; diagnose strategy/regime/execution.
+5+: remain halted until review criteria are satisfied.
+
+WIN-STREAK RESPONSE
+Never increase risk merely because of a winning streak. Size may increase only through account equity growth and validated strategy/risk rules.
+
+DRAWDOWN STATES
+0–3%: normal.
+3–5%: caution / increased selectivity.
+5–6%: warning.
+6–8%: reduced-risk mode.
+8–10%: defensive mode; only strongest validated opportunities if permissions allow.
+>=10%: suspend live strategy deployment pending review unless the user has explicitly adopted a stricter/alternative hard configuration.

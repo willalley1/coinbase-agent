@@ -1,0 +1,139 @@
+# Shortest holding-window research
+
+Historical nonoverlapping unconditional candle returns, missing spreads/depth; not strategy fills or proof of consistency
+
+Historical span: 14 days. Final third used for chronological evaluation. Current fee assumptions applied to both sides.
+No window is validated. A profitable historical selection still needs untouched holdout and forward testing.
+
+| Product | Minutes | Evaluation windows | Mean net % | Win % | Positive days / days |
+|---|---:|---:|---:|---:|---:|
+| BTC-USD | 1 | 6717 | -1.800 | 0.0 | 0/6 |
+| BTC-USD | 2 | 3357 | -1.799 | 0.0 | 0/6 |
+| BTC-USD | 3 | 2238 | -1.799 | 0.0 | 0/6 |
+| BTC-USD | 5 | 1342 | -1.798 | 0.0 | 0/6 |
+| BTC-USD | 10 | 671 | -1.797 | 0.0 | 0/6 |
+| BTC-USD | 15 | 447 | -1.795 | 0.0 | 0/6 |
+| BTC-USD | 20 | 335 | -1.794 | 0.0 | 0/6 |
+| BTC-USD | 30 | 223 | -1.790 | 0.0 | 0/6 |
+| BTC-USD | 45 | 148 | -1.785 | 0.0 | 0/6 |
+| BTC-USD | 60 | 111 | -1.779 | 0.0 | 0/6 |
+| BTC-USD | 90 | 73 | -1.768 | 0.0 | 0/6 |
+| BTC-USD | 120 | 55 | -1.755 | 0.0 | 0/5 |
+| BTC-USD | 180 | 36 | -1.694 | 0.0 | 0/5 |
+| BTC-USD | 240 | 27 | -1.649 | 0.0 | 0/5 |
+| ETH-USD | 1 | 6717 | -1.800 | 0.0 | 0/6 |
+| ETH-USD | 2 | 3357 | -1.800 | 0.0 | 0/6 |
+| ETH-USD | 3 | 2238 | -1.800 | 0.0 | 0/6 |
+| ETH-USD | 5 | 1342 | -1.800 | 0.0 | 0/6 |
+| ETH-USD | 10 | 671 | -1.799 | 0.0 | 0/6 |
+| ETH-USD | 15 | 447 | -1.799 | 0.0 | 0/6 |
+| ETH-USD | 20 | 335 | -1.798 | 0.0 | 0/6 |
+| ETH-USD | 30 | 223 | -1.797 | 0.0 | 0/6 |
+| ETH-USD | 45 | 148 | -1.795 | 0.0 | 0/6 |
+| ETH-USD | 60 | 111 | -1.792 | 0.0 | 0/6 |
+| ETH-USD | 90 | 73 | -1.791 | 0.0 | 0/6 |
+| ETH-USD | 120 | 55 | -1.782 | 0.0 | 0/5 |
+| ETH-USD | 180 | 36 | -1.737 | 0.0 | 0/5 |
+| ETH-USD | 240 | 27 | -1.700 | 0.0 | 0/5 |
+| SOL-USD | 1 | 6717 | -1.800 | 0.0 | 0/6 |
+| SOL-USD | 2 | 3357 | -1.799 | 0.0 | 0/6 |
+| SOL-USD | 3 | 2238 | -1.799 | 0.0 | 0/6 |
+| SOL-USD | 5 | 1342 | -1.798 | 0.0 | 0/6 |
+| SOL-USD | 10 | 671 | -1.796 | 0.0 | 0/6 |
+| SOL-USD | 15 | 447 | -1.794 | 0.0 | 0/6 |
+| SOL-USD | 20 | 335 | -1.792 | 0.0 | 0/6 |
+| SOL-USD | 30 | 223 | -1.788 | 0.0 | 0/6 |
+| SOL-USD | 45 | 148 | -1.784 | 0.0 | 0/6 |
+| SOL-USD | 60 | 111 | -1.774 | 0.0 | 0/6 |
+| SOL-USD | 90 | 73 | -1.766 | 0.0 | 0/6 |
+| SOL-USD | 120 | 55 | -1.742 | 0.0 | 0/5 |
+| SOL-USD | 180 | 36 | -1.682 | 2.8 | 0/5 |
+| SOL-USD | 240 | 27 | -1.620 | 0.0 | 0/5 |
+| XRP-USD | 1 | 6717 | -1.800 | 0.0 | 0/6 |
+| XRP-USD | 2 | 3357 | -1.800 | 0.0 | 0/6 |
+| XRP-USD | 3 | 2238 | -1.799 | 0.0 | 0/6 |
+| XRP-USD | 5 | 1342 | -1.799 | 0.0 | 0/6 |
+| XRP-USD | 10 | 671 | -1.798 | 0.0 | 0/6 |
+| XRP-USD | 15 | 447 | -1.798 | 0.0 | 0/6 |
+| XRP-USD | 20 | 335 | -1.797 | 0.0 | 0/6 |
+| XRP-USD | 30 | 223 | -1.794 | 0.0 | 0/6 |
+| XRP-USD | 45 | 148 | -1.792 | 0.0 | 0/6 |
+| XRP-USD | 60 | 111 | -1.785 | 0.0 | 0/6 |
+| XRP-USD | 90 | 73 | -1.784 | 0.0 | 0/6 |
+| XRP-USD | 120 | 55 | -1.766 | 0.0 | 0/5 |
+| XRP-USD | 180 | 36 | -1.715 | 0.0 | 0/5 |
+| XRP-USD | 240 | 27 | -1.665 | 0.0 | 0/5 |
+| DOGE-USD | 1 | 5907 | -1.800 | 0.0 | 0/6 |
+| DOGE-USD | 2 | 2871 | -1.801 | 0.0 | 0/6 |
+| DOGE-USD | 3 | 1857 | -1.801 | 0.0 | 0/6 |
+| DOGE-USD | 5 | 1062 | -1.800 | 0.0 | 0/6 |
+| DOGE-USD | 10 | 483 | -1.800 | 0.0 | 0/6 |
+| DOGE-USD | 15 | 282 | -1.796 | 0.0 | 0/6 |
+| DOGE-USD | 20 | 202 | -1.793 | 0.0 | 0/6 |
+| DOGE-USD | 30 | 117 | -1.782 | 0.0 | 0/6 |
+| DOGE-USD | 45 | 62 | -1.811 | 0.0 | 0/4 |
+| DOGE-USD | 60 | 45 | -1.816 | 2.2 | 0/4 |
+| DOGE-USD | 90 | 24 | -1.898 | 0.0 | 0/4 |
+| DOGE-USD | 120 | 17 | -1.917 | 0.0 | 0/4 |
+| DOGE-USD | 180 | 9 | -1.497 | 11.1 | 0/4 |
+| DOGE-USD | 240 | 7 | -1.805 | 14.3 | 0/4 |
+| SUI-USD | 1 | 6617 | -1.799 | 0.0 | 0/6 |
+| SUI-USD | 2 | 3297 | -1.799 | 0.0 | 0/6 |
+| SUI-USD | 3 | 2185 | -1.798 | 0.0 | 0/6 |
+| SUI-USD | 5 | 1304 | -1.796 | 0.1 | 0/6 |
+| SUI-USD | 10 | 640 | -1.792 | 0.2 | 0/6 |
+| SUI-USD | 15 | 421 | -1.785 | 0.2 | 0/6 |
+| SUI-USD | 20 | 308 | -1.785 | 1.3 | 0/6 |
+| SUI-USD | 30 | 201 | -1.777 | 2.0 | 0/6 |
+| SUI-USD | 45 | 129 | -1.759 | 4.7 | 0/6 |
+| SUI-USD | 60 | 94 | -1.760 | 4.3 | 0/6 |
+| SUI-USD | 90 | 59 | -1.751 | 11.9 | 0/5 |
+| SUI-USD | 120 | 43 | -1.758 | 14.0 | 0/5 |
+| SUI-USD | 180 | 27 | -1.618 | 18.5 | 0/5 |
+| SUI-USD | 240 | 19 | -1.565 | 21.1 | 0/5 |
+| NEAR-USD | 1 | 6671 | -1.799 | 0.0 | 0/6 |
+| NEAR-USD | 2 | 3329 | -1.798 | 0.0 | 0/6 |
+| NEAR-USD | 3 | 2216 | -1.797 | 0.0 | 0/6 |
+| NEAR-USD | 5 | 1325 | -1.796 | 0.2 | 0/6 |
+| NEAR-USD | 10 | 658 | -1.790 | 0.8 | 0/6 |
+| NEAR-USD | 15 | 434 | -1.788 | 1.2 | 0/6 |
+| NEAR-USD | 20 | 322 | -1.781 | 1.2 | 0/6 |
+| NEAR-USD | 30 | 213 | -1.777 | 2.8 | 0/6 |
+| NEAR-USD | 45 | 139 | -1.761 | 6.5 | 0/6 |
+| NEAR-USD | 60 | 104 | -1.740 | 2.9 | 0/6 |
+| NEAR-USD | 90 | 66 | -1.726 | 10.6 | 0/5 |
+| NEAR-USD | 120 | 47 | -1.652 | 12.8 | 0/5 |
+| NEAR-USD | 180 | 30 | -1.570 | 23.3 | 0/5 |
+| NEAR-USD | 240 | 21 | -1.229 | 28.6 | 0/5 |
+| HYPE-USD | 1 | 6084 | -1.799 | 0.0 | 0/6 |
+| HYPE-USD | 2 | 2968 | -1.798 | 0.0 | 0/6 |
+| HYPE-USD | 3 | 1938 | -1.797 | 0.0 | 0/6 |
+| HYPE-USD | 5 | 1112 | -1.793 | 0.0 | 0/6 |
+| HYPE-USD | 10 | 505 | -1.787 | 0.0 | 0/6 |
+| HYPE-USD | 15 | 314 | -1.781 | 0.0 | 0/6 |
+| HYPE-USD | 20 | 214 | -1.773 | 0.0 | 0/6 |
+| HYPE-USD | 30 | 129 | -1.762 | 0.8 | 0/6 |
+| HYPE-USD | 45 | 79 | -1.757 | 1.3 | 0/6 |
+| HYPE-USD | 60 | 55 | -1.759 | 0.0 | 0/5 |
+| HYPE-USD | 90 | 31 | -1.821 | 0.0 | 0/5 |
+| HYPE-USD | 120 | 20 | -1.834 | 5.0 | 0/3 |
+| HYPE-USD | 180 | 11 | -2.082 | 9.1 | 0/3 |
+| HYPE-USD | 240 | 7 | -2.096 | 0.0 | 0/3 |
+| ZEC-USD | 1 | 6691 | -1.800 | 0.0 | 0/6 |
+| ZEC-USD | 2 | 3342 | -1.801 | 0.0 | 0/6 |
+| ZEC-USD | 3 | 2227 | -1.801 | 0.0 | 0/6 |
+| ZEC-USD | 5 | 1332 | -1.801 | 0.0 | 0/6 |
+| ZEC-USD | 10 | 663 | -1.803 | 0.2 | 0/6 |
+| ZEC-USD | 15 | 439 | -1.806 | 0.2 | 0/6 |
+| ZEC-USD | 20 | 328 | -1.809 | 0.3 | 0/6 |
+| ZEC-USD | 30 | 216 | -1.806 | 0.9 | 0/6 |
+| ZEC-USD | 45 | 144 | -1.820 | 1.4 | 0/6 |
+| ZEC-USD | 60 | 104 | -1.815 | 1.9 | 0/6 |
+| ZEC-USD | 90 | 68 | -1.832 | 5.9 | 0/5 |
+| ZEC-USD | 120 | 49 | -1.832 | 6.1 | 0/5 |
+| ZEC-USD | 180 | 31 | -1.905 | 9.7 | 0/5 |
+| ZEC-USD | 240 | 23 | -1.857 | 17.4 | 0/5 |
+
+Selections: {"BTC-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "DOGE-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "ETH-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "HYPE-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "NEAR-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "SOL-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "SUI-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "XRP-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}, "ZEC-USD": {"next_larger_minutes": [], "reason": "Exploratory threshold only; requires untouched holdout, forward evidence and correction for multiple comparisons", "shortest_provisional_minutes": null, "validated": false}}
+
+Errors: {}

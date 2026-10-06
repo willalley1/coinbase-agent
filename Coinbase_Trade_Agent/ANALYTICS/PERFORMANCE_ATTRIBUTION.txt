@@ -1,0 +1,17 @@
+PERFORMANCE ATTRIBUTION
+
+ATTRIBUTE NET RESULTS TO
+- strategy/version
+- product
+- regime
+- direction
+- timeframe/session
+- signal-score bucket
+- volatility bucket
+- maker/taker execution
+- fees/slippage/funding
+- correlated cluster
+- discretionary/rule deviations
+
+GOAL
+Separate strategy edge from execution quality and market selection. A good gross strategy with poor net results may require execution improvement; a perfectly executed negative-expectancy strategy should be suspended, not optimized cosmetically.

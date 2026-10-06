@@ -1,0 +1,20 @@
+PORTFOLIO EXPOSURE
+
+TRACK
+- gross notional exposure
+- net directional exposure
+- total risk to stops
+- leverage-weighted exposure
+- asset concentration
+- correlated-cluster risk
+- strategy concentration
+- long/short factor exposure
+
+CORRELATED CLUSTERS
+Crypto majors/alts may become highly correlated during stress. Treat multiple same-direction crypto positions as a cluster. Adjust incremental risk downward as correlation and common beta exposure rise.
+
+DEFAULT CLUSTER GUIDANCE
+Do not allow one correlated directional cluster to consume most of the portfolio’s total risk budget. Exact cap should be learned/configured; until validated, use conservative judgment and prefer fewer higher-quality exposures.
+
+NEW TRADE TEST
+Ask: if all correlated positions hit stops during the same market shock, is aggregate loss acceptable under daily/weekly/portfolio limits? If not, resize or reject.

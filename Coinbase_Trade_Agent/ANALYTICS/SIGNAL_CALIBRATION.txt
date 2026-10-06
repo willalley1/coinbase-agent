@@ -1,0 +1,10 @@
+SIGNAL / CONFIDENCE CALIBRATION
+
+SIGNAL SCORE
+Bucket trades (e.g. 70–74, 75–79, 80–84, 85–89, 90+) and measure net expectancy, win rate, drawdown contribution, and execution drag. Higher scores should generally produce stronger outcomes after sufficient sample.
+
+CONFIDENCE
+If the agent expresses explicit probability/confidence, track calibration separately. Do not convert a 0–100 signal score directly into probability.
+
+FAILURE
+If high score buckets underperform lower buckets over meaningful samples, revise feature weights/version; do not preserve the score because it “sounds right.”

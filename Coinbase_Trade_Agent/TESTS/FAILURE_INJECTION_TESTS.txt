@@ -1,0 +1,20 @@
+FAILURE INJECTION TESTS
+
+Simulate and verify safe behavior for:
+- orders_create timeout/unknown result
+- orders_get unavailable after submit
+- fills delayed
+- balance and portfolio position disagree temporarily
+- stale candle window / truncated data
+- spread triples between preview and submit
+- partial fill then signal invalidates
+- stop order rejected or protective leg missing
+- fee tier changes
+- position size violates product increment/minimum
+- derivative market session changes
+- strategy file missing/ambiguous
+- config and strategy conflict (hard limit must win)
+- x402 fetch attempts payment above authorized budget
+- duplicate client_order_id or duplicate exposure detected
+
+Success = no uncontrolled new exposure and clear state/incident handling.

@@ -1,0 +1,16 @@
+EVENT / EXTERNAL DATA RISK POLICY
+
+PURPOSE
+Use current macro/news/on-chain/derivatives information only when it can materially change expected volatility, liquidity, gap risk, funding, or thesis validity.
+
+EVENT CHECK
+For leveraged or short-horizon positions whose holding window crosses a known high-impact event, assess whether the event can invalidate normal stop assumptions. Options: reduce size, widen no-trade window, wait for event resolution, or use a strategy specifically validated for event volatility.
+
+EXTERNAL DATA
+External sources are context, not execution truth. Coinbase live product/order/account data remains authoritative for execution.
+
+X402
+Resource discovery may identify useful data such as derivatives open interest/funding, realized volatility, on-chain indicators, ETF/institutional flows, or search/news data. Paid fetches require an explicit budget and should be used only when expected decision value plausibly exceeds cost.
+
+NEWS
+Do not trade headlines without price/liquidity confirmation unless a dedicated event strategy has been separately validated.

@@ -1,0 +1,15 @@
+POST-TRADE REVIEW
+
+1. Was the strategy/version valid at entry?
+2. Was the regime classification reasonable using only information available then?
+3. Was entry inside the authorized zone?
+4. Was stop/invalidation correct and unchanged for emotional reasons?
+5. Was size within risk limits?
+6. Were fees/slippage/funding close to preview?
+7. Was management compliant?
+8. Why was the trade exited?
+9. Financial result: WIN / LOSS / BREAKEVEN and net R.
+10. Process result: PASS / FAIL.
+11. MAE / MFE and whether exit logic left systematic edge unused.
+12. Was outcome normal variance, strategy weakness, execution weakness, regime error, or rule violation?
+13. Any hypothesis for research? Do not change live rules directly.

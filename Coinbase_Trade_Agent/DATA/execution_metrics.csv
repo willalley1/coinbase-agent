@@ -1,0 +1,1 @@
+timestamp,trade_id,product_id,strategy_id,order_id,order_type,maker_taker,planned_price,actual_price,requested_size,filled_size,expected_fee,actual_fee,expected_slippage,actual_slippage,fill_delay_seconds,partial_fill,execution_status

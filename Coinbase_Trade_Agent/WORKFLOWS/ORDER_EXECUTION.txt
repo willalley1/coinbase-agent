@@ -1,0 +1,14 @@
+ORDER EXECUTION WORKFLOW
+
+1. Confirm authorization still valid.
+2. Recheck open orders/position for duplicate exposure.
+3. Refresh bid/ask / relevant liquidity.
+4. Ensure price remains inside entry zone.
+5. Re-preview if market moved materially.
+6. Submit with unique client_order_id.
+7. Read resulting order status.
+8. Read fills and actual fees.
+9. Verify resulting position.
+10. Verify protective exits / create required protection if authorized and supported.
+11. Mark ACTIVE_CONFIRMED only after reconciliation.
+12. If response ambiguous, enter STATE_UNKNOWN; do not retry until reconciled.

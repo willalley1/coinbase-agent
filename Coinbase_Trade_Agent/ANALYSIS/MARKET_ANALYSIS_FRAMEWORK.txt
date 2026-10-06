@@ -1,0 +1,36 @@
+MARKET ANALYSIS FRAMEWORK
+
+ANALYSIS ORDER
+1. Product status and liquidity.
+2. Higher-timeframe structure.
+3. Volatility state.
+4. Trend/range/compression/expansion regime.
+5. Key support/resistance / prior swing / breakout levels.
+6. Momentum quality.
+7. Volume participation.
+8. Lower-timeframe setup and trigger.
+9. Derivatives/on-chain/news context only when decision-relevant.
+10. Costs and execution quality.
+
+TIMEFRAME MODEL FOR INTRADAY CRYPTO
+Default context stack: 4H macro context -> 1H primary regime -> 15m setup -> 5m execution. 1m may refine execution but must not override higher-timeframe context. Strategy files may specify different stacks.
+
+EVIDENCE FAMILIES
+Treat evidence as partially independent only when it comes from distinct families:
+- price structure
+- trend persistence
+- momentum
+- volume/participation
+- volatility
+- liquidity/order book
+- multi-timeframe context
+- derivatives positioning/funding/OI
+- on-chain/institutional context
+- event/news risk
+Multiple momentum indicators are not multiple independent confirmations.
+
+INDICATORS
+Indicators are tools, not signals by themselves. Candidate calculations include EMA 20/50/200, ATR(14), RSI(14), ADX(14), volume averages/percentiles, realized volatility, and range width. Use price structure first. Do not optimize indicator parameters without research/validation.
+
+SCENARIO THINKING
+For each setup define bullish/long thesis, bearish/short thesis, invalidation, expected path, and what would make the trade late or no longer attractive.

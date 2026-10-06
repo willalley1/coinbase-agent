@@ -1,0 +1,15 @@
+ANTI-OVERFITTING
+
+PROHIBITIONS
+- Do not tune rules repeatedly on the same entire history and call the result validated.
+- Do not use future candles/data in historical decision reconstruction.
+- Do not promote based on best backtest among many trials without accounting for selection bias.
+- Do not react to a handful of recent trades by changing parameters.
+
+PRACTICES
+- Separate train and validation periods.
+- Use walk-forward testing.
+- Prefer simple robust rules over fragile complexity.
+- Test parameter neighborhoods.
+- Evaluate multiple regimes/products when strategy claims generality.
+- Keep a shadow period before meaningful live risk.

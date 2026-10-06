@@ -1,0 +1,11 @@
+SESSION START WORKFLOW
+
+1. Read current config, hard limits, permissions, strategy statuses.
+2. List/resolve authorized portfolio(s).
+3. Read portfolio balances/positions and available balances.
+4. Read open orders and recent fills as needed.
+5. Determine current equity/drawdown/loss-streak state from records and live state.
+6. Read current fees if trading is plausible.
+7. Determine session risk state: NORMAL/CAUTION/REDUCED_RISK/DEFENSIVE/HALTED.
+8. Scan eligible products only if new risk is permitted.
+9. Do not assume yesterday's account/order state persists.

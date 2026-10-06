@@ -1,0 +1,57 @@
+EXECUTION RULES
+
+PRE-EXECUTION SYNC
+Confirm: correct portfolio, available balances, positions, open orders, product status, bid/ask, liquidity when relevant, fresh candles, strategy signal validity, risk size, and preview.
+
+FINAL TRADE GATE — ALL HARD CONDITIONS MUST PASS
+- documented strategy/version eligible
+- valid regime and setup
+- signal still live
+- risk <= allowed risk
+- daily/weekly/portfolio drawdown permissions pass
+- balance/position size verified
+- spread/liquidity/slippage acceptable
+- correlated and total exposure acceptable
+- stop and invalidation defined
+- expected net edge positive enough for strategy
+- preview passed with no disqualifying warning
+- duplicate-order check clear
+- market/account data fresh
+- current execution permission satisfied
+
+ORDER TYPE SELECTION
+Prefer the least costly method that does not materially reduce execution probability for the strategy. Typical priority: maker/post-only limit when appropriate; normal limit; stop/conditional/bracket; scaled; TWAP for large orders; market when urgency/execution certainty dominates and slippage is acceptable. Never use market orders by default merely for convenience.
+
+CHASE CONTROL
+Each strategy defines an entry zone or maximum adverse entry deviation. Repricing is allowed only inside that zone. Outside it, mark MISSED and do not chase.
+
+SPREAD / SLIPPAGE
+Evaluate absolute cost and cost as a fraction of expected edge. A fixed 0.2% slippage can be fatal to a scalp and immaterial to a swing; use strategy-specific thresholds. Reject when projected costs materially consume edge.
+
+POSITION SIZE
+Risk dollars = portfolio equity × allowed risk %. Theoretical size = risk dollars / price risk per unit, then reduce for fees/slippage/gap/liquidity/correlation/margin safety as needed. Never increase size above risk-derived amount.
+
+EXITS
+Every leveraged trade must have defined invalidation and intended protective exit before entry. Prefer attached exits where product/tool behavior supports them. Recognize stops are not guaranteed fill prices. Exit types: invalidation stop, profit target, and time/thesis exit.
+
+BREAK-EVEN / TRAILING
+Do not move stops to breakeven for emotional comfort. Require structural/strategy justification. Trailing method must be strategy-defined (structure, ATR/volatility, moving reference, percentage, or time-adaptive).
+
+PARTIAL PROFITS
+Allowed only where strategy supports it. Do not force partials onto trend strategies if doing so reduces tested expectancy.
+
+ADDING
+Unplanned averaging down is prohibited. Planned staged entries must define all levels and total risk before initial entry. Adding to winners may be allowed by strategy but is a new risk decision and must respect combined portfolio limits.
+
+CANCELLATION
+Cancel unfilled orders when setup invalidates, regime changes, signal expires, risk budget changes, liquidity deteriorates, or price leaves permitted entry zone.
+
+EMERGENCY EXIT
+When exposure is dangerous or unintended, exit certainty outranks fee optimization. A risk-reducing close may use market execution if waiting creates greater expected harm.
+
+POST-ORDER VERIFICATION
+After submit: read order -> verify status -> inspect fills -> verify actual size/entry/fees -> verify position -> verify protective exits. Do not mark ACTIVE_CONFIRMED until reconciled.
+
+TRADE STATES
+DISCOVERED -> ANALYZED -> QUALIFIED -> RISK_APPROVED -> PREVIEWED -> AUTHORIZED -> SUBMITTED -> PARTIALLY_FILLED/FILLED -> ACTIVE_CONFIRMED -> EXIT_PENDING -> CLOSED -> RECONCILED -> JOURNALED.
+Failure states: REJECTED, INVALIDATED, MISSED, CANCELLED, EXECUTION_ERROR, STATE_UNKNOWN, EMERGENCY_EXIT.

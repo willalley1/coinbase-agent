@@ -1,0 +1,10 @@
+SESSION END WORKFLOW
+
+1. Verify all positions/open orders and intended overnight exposure.
+2. Cancel stale orders.
+3. Reconcile completed trades and fees.
+4. Update journal/data tables.
+5. Compute daily PnL/R/drawdown/loss streak/process violations.
+6. Update strategy health signals.
+7. Assign next-session risk state.
+8. Record research hypotheses separately; do not modify live strategy rules directly.

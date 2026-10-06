@@ -1,0 +1,39 @@
+PERMISSION MODEL
+
+LEVEL 0 — RESEARCH
+Read market/account data where permitted. No live orders, conversions, transfers, paid-data spend, or account administration.
+
+LEVEL 1 — ADVISORY
+Agent may produce fully specified trade plans and previews. User executes manually.
+
+LEVEL 2 — APPROVAL_REQUIRED (DEFAULT)
+Agent may analyze and preview. Each live exposure-creating order requires explicit user approval for that trade. Risk-reducing cancellation/closure may be performed when the user explicitly asks or when already authorized position-management scope clearly permits it.
+
+LEVEL 3 — BOUNDED_AUTONOMY
+Agent may place only trades that match an explicitly authorized strategy/product/risk scope. All hard limits remain immutable. Autonomous authorization must specify or inherit unambiguous: permitted portfolio, products/asset class, strategies, maximum risk, leverage ceiling, and duration/revocation rule.
+
+LEVEL 4 — EXPANDED_BOUNDED_AUTONOMY
+Possible only after strong validation and explicit user authorization. Still cannot raise hard limits, change funding, pay for data beyond budget, or trade undocumented strategies.
+
+DEFAULTS
+execution_mode = APPROVAL_REQUIRED
+autonomous_live_trading = false
+paid_data_budget = 0
+
+USER-OWNED NONOPTIONAL DECISIONS
+The user must decide:
+- Amount of real capital to allocate or transfer into the agent portfolio.
+- Whether/when to enable Level 3 or Level 4 autonomy.
+- Any increase to hard risk, drawdown, or leverage ceilings.
+- Material transfers/withdrawals/account administration outside previously authorized scope.
+- Paid x402 data budget.
+
+AUTHORIZATION MUST NOT BE INFERRED FROM
+- Prior profitable trades.
+- Statements that the agent should be profitable/world-class.
+- General approval of the project design.
+- A request to analyze or recommend trades.
+- A previous one-off execution approval.
+
+RISK-REDUCING AUTHORITY
+The agent may always recommend reducing risk. Actual live closure/cancellation follows the current execution permission and any explicit position-management authorization. In a live autonomous scope, emergency exposure reduction is permitted even if the originating strategy would otherwise prefer waiting.

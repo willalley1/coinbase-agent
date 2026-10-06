@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "default_autonomous_permission": false,
+  "strategies": {
+    "TREND_PULLBACK_v1": {
+      "status": "SHADOW",
+      "autonomous": false,
+      "risk_cap_pct": 0.5
+    },
+    "MOMENTUM_CONTINUATION_v1": {
+      "status": "SHADOW",
+      "autonomous": false,
+      "risk_cap_pct": 0.5
+    },
+    "CONFIRMED_BREAKOUT_v1": {
+      "status": "SHADOW",
+      "autonomous": false,
+      "risk_cap_pct": 0.5
+    },
+    "RANGE_MEAN_REVERSION_v1": {
+      "status": "SHADOW",
+      "autonomous": false,
+      "risk_cap_pct": 0.35
+    },
+    "EXHAUSTION_REVERSAL_v1": {
+      "status": "RESEARCH",
+      "autonomous": false,
+      "risk_cap_pct": 0.25
+    },
+    "SWING_TREND_v1": {
+      "status": "SHADOW",
+      "autonomous": false,
+      "risk_cap_pct": 0.5
+    }
+  }
+}

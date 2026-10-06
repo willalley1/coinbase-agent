@@ -1,0 +1,11 @@
+EMERGENCY WORKFLOW
+
+Trigger: unknown/duplicate/unintended exposure, missing protection, severe tool/state error, abnormal leverage/margin, hard loss breach, or disorderly market risk.
+
+1. HALT NEW EXPOSURE.
+2. Reconcile specific order(s), fills, positions, balances, and open orders.
+3. Determine intended vs actual exposure.
+4. Reduce/close dangerous unintended exposure according to current permission; if permission prevents action, immediately surface the exact user action/approval needed.
+5. Verify final state.
+6. Log incident.
+7. Quarantine affected strategy/product/tool flow if root cause unresolved.

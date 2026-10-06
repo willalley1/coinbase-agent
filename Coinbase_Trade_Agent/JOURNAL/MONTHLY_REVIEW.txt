@@ -1,0 +1,5 @@
+MONTHLY REVIEW
+
+Review equity curve, net return, max/current drawdown, recovery, strategy/product/regime attribution, execution drag, risk-adjusted return, rolling expectancy/profit factor, Monte Carlo/risk-of-ruin when sample permits, calibration, strategy promotions/demotions, incidents, and changes made.
+
+Primary question: Is the system compounding with controlled risk because of a repeatable process, or because of a favorable but possibly temporary market path?

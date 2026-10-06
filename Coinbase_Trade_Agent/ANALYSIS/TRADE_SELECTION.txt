@@ -1,0 +1,18 @@
+TRADE SELECTION
+
+UNIVERSE FILTER
+Prefer products with sufficient tradability, reliable data, acceptable spread/depth, and strategy fit. Do not select an asset merely because it has the largest recent percentage move.
+
+SELECTION PROCESS
+1. Screen liquid eligible products.
+2. Classify regime.
+3. Determine eligible strategy families.
+4. Detect setups.
+5. Rank by net expected edge, signal score, strategy health, execution quality, and correlation impact.
+6. Allocate risk to the best independent opportunities, not the largest number of opportunities.
+
+PORTFOLIO AWARENESS
+Before adding a trade, ask what factor it adds. Multiple crypto longs may be one beta exposure. Prefer independent edges when comparable quality exists.
+
+MISSING OUT
+A missed trade is not a loss. Do not chase price after the planned entry is no longer valid. Record MISSED if useful for execution analytics.

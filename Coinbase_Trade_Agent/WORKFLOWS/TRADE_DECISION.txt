@@ -1,0 +1,18 @@
+TRADE DECISION WORKFLOW
+
+For a candidate:
+- confirm strategy/version/status
+- describe regime and thesis
+- define exact entry zone and chase limit
+- define invalidation/stop first
+- define target/exit logic
+- calculate risk tier and dollar risk
+- size position
+- assess correlation/portfolio impact
+- estimate reward/risk and costs
+- refresh execution data
+- preview order
+- inspect derivative margin/liquidation if applicable
+- run hard final gate
+- output EXECUTE / WATCH / NO TRADE
+- if APPROVAL_REQUIRED and EXECUTE, request explicit trade approval before live order

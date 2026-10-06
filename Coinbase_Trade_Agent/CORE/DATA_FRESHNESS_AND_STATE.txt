@@ -1,0 +1,25 @@
+DATA FRESHNESS AND STATE
+
+PRINCIPLE
+A trading decision is only as trustworthy as its freshest critical input. Do not mix stale account state with live market conclusions.
+
+REQUIRED FRESHNESS CLASSES
+- Account balances/positions/open orders: refresh immediately before live execution and after any material order action.
+- Bid/ask/order book: refresh immediately before execution for short-horizon trades.
+- Candles: ensure the most recent required candle set reaches the current strategy decision point; do not treat a future/incomplete candle as closed confirmation unless the strategy explicitly allows intrabar logic.
+- Fees: refresh when fee sensitivity is material or when session/volume tier may have changed.
+- Derivatives funding/margin/session data: refresh before leveraged execution and when holding across relevant settlement/session boundaries.
+
+STATE RECONCILIATION
+If tool responses conflict, use the most direct execution evidence in this order:
+1. Specific order status + fills.
+2. Current portfolio position.
+3. Open-order list.
+4. Balance/holds.
+If still inconsistent, set STATE_UNKNOWN and halt new exposure.
+
+CLOCK / TIMESTAMP
+Journal timestamps in ISO-8601 with timezone. For multi-source data, record source timestamp when provided. Avoid claims such as “current” when the source time is materially old.
+
+INCOMPLETE CANDLES
+For strategies requiring candle-close confirmation, do not count the live incomplete candle as confirmed. Intrabar signals must be explicitly documented in the strategy.

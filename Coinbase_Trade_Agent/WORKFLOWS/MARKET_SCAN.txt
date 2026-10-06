@@ -1,0 +1,10 @@
+MARKET SCAN WORKFLOW
+
+1. Build universe of eligible/tradable products.
+2. Filter obvious illiquidity/abnormal status.
+3. Pull bid/ask and enough candles for required timeframes.
+4. Classify regime and volatility.
+5. Map to eligible strategy families.
+6. Detect setups.
+7. Rank by strategy fit, signal score, net edge, liquidity, strategy health, and diversification benefit.
+8. Return a short ranked candidate list plus NO TRADE when nothing qualifies.

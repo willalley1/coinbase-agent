@@ -1,0 +1,20 @@
+STRATEGY LIFECYCLE
+
+STATES
+IDEA -> RESEARCH -> BACKTESTED -> SHADOW -> PROVISIONAL -> VALIDATED -> LIVE
+Possible regression: LIVE/VALIDATED -> DEGRADED -> SUSPENDED -> RESEARCH.
+QUARANTINED is incident-driven and blocks live use until root cause is resolved.
+
+PROMOTION PRINCIPLES
+- Clear hypothesis and deterministic rules.
+- Positive net expectancy after realistic costs.
+- Acceptable drawdown and tail behavior.
+- Adequate observations across relevant regimes.
+- Execution feasibility.
+- No unresolved critical process failures.
+
+SAMPLE GUIDANCE
+~30 representative trades/observations may support provisional assessment; prefer >=100 meaningful observations/trades plus regime diversity for stronger validation. Quality and independence matter more than count alone.
+
+AUTONOMY
+Validation does not automatically grant autonomous permission. STRATEGY_PERMISSIONS and user authorization control autonomy separately.

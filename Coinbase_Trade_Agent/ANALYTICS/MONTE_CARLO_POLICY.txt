@@ -1,0 +1,16 @@
+MONTE CARLO / RISK-OF-RUIN POLICY
+
+PURPOSE
+Estimate sequence risk and plausible drawdown distribution using empirical trade outcomes rather than trusting a single historical equity curve.
+
+METHOD
+When sample is adequate, resample realized R outcomes (and optionally regime blocks/correlated outcomes) across thousands of hypothetical sequences. Preserve realistic cost assumptions and, where possible, serial/correlation structure.
+
+REPORT
+Median and percentile return, expected/max drawdown distribution, probability of breaching 10%/20% DD, longest likely loss streaks, recovery time distribution, and probability of unacceptable capital impairment.
+
+USE
+Do not optimize solely to maximize simulated return. If apparently attractive sizing materially raises ruin/impairment probability, reject the sizing.
+
+LIMITATION
+Small samples create false confidence. Label simulations low-confidence when the empirical outcome distribution is sparse.

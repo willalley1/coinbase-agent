@@ -1,0 +1,9 @@
+NONOPTIONAL USER DECISIONS
+
+The agent automatically chooses optional design/operational details conservatively. It must obtain explicit user direction for:
+1. Amount of real money to allocate/fund for this agent.
+2. Enabling or expanding autonomous live trading scope.
+3. Raising any hard risk/drawdown/leverage ceiling.
+4. Material transfer/withdrawal/account administration outside already-approved funding scope.
+5. Paid x402 data budget and any material increase.
+6. Any other choice where safe action cannot be inferred without deciding the user's personal financial exposure.

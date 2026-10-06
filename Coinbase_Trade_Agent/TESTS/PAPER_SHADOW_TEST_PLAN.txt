@@ -1,0 +1,16 @@
+PAPER / SHADOW TEST PLAN
+
+PHASE A — LOGIC TEST
+Run strategy detection over historical/current data without orders. Confirm deterministic classification and no hard-rule violations.
+
+PHASE B — SHADOW SIGNALS
+Generate timestamped trade plans in real time without execution. Record theoretical fills conservatively and compare to actual market path.
+
+PHASE C — APPROVAL-REQUIRED SMALL LIVE
+Only after sufficient shadow quality and user capital decision. Use reduced risk, full previews, explicit approval, and detailed execution analytics.
+
+PHASE D — PROVISIONAL VALIDATION
+Accumulate representative live observations. Review expectancy, process compliance, execution drag, drawdown, and regime dependence.
+
+PHASE E — BOUNDED AUTONOMY CANDIDATE
+Only a validated strategy/product scope may be proposed for autonomous permission. User must explicitly authorize scope.

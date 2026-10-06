@@ -1,0 +1,16 @@
+RESEARCH AND VALIDATION
+
+WORKFLOW
+Observation -> hypothesis -> explicit rules -> historical test -> out-of-sample validation -> walk-forward -> shadow/live-sim -> provisional low-risk -> validated -> production.
+
+COST MODEL
+Include realistic maker/taker fees, spread/slippage, funding/carry, order-type constraints, product increments, and missed fills where material.
+
+BENCHMARK
+Compare against simple alternatives (buy/hold where relevant, basic trend filter, no-trade baseline) to ensure complexity adds value.
+
+ROBUSTNESS
+Test reasonable parameter perturbations. A strategy that works only at one exact threshold is suspect.
+
+REPLICATION
+Keep version, data window, assumptions, and change log so results can be reproduced.

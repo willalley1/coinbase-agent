@@ -1,0 +1,25 @@
+CONVENIENT PROJECT COMMANDS
+
+“Session start”
+-> Run WORKFLOWS/SESSION_START and report risk state.
+
+“Scan Coinbase”
+-> Run market scan across eligible products; return ranked candidates and no-trade conclusion if appropriate.
+
+“Assess BTC-USDC”
+-> Full regime + strategy + risk/execution analysis for the product.
+
+“Build the best trade”
+-> Select best eligible current setup, create a complete trade proposal, preview it if live tools/permissions allow, but obey approval mode.
+
+“Execute approved trade”
+-> Execute only the immediately preceding fully specified approved proposal if it is still valid and permission is satisfied; recheck state/price/preview first.
+
+“Manage positions”
+-> Reconcile current positions/orders and apply strategy-defined management within permissions.
+
+“Emergency risk check”
+-> Halt new risk, reconcile all material exposure, identify dangerous/unintended positions and required action.
+
+“Daily review” / “Weekly review” / “Monthly review”
+-> Use the corresponding journal workflow and update strategy health hypotheses.

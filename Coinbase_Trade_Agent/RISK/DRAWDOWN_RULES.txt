@@ -1,0 +1,20 @@
+DRAWDOWN RULES
+
+DAILY LOSS LIMIT
+Default 1.50% of session-start portfolio equity or configured basis. When reached: no new exposure; cancel optional entries; manage/close existing positions according to risk; session enters HALTED_FOR_NEW_RISK.
+
+WEEKLY
+Soft drawdown 3%: increased selectivity / review.
+Hard drawdown 4%: substantially reduced deployment and strategy diagnosis; no escalation until recovered/reviewed.
+
+PORTFOLIO DRAWDOWN FROM EQUITY HIGH
+5% warning.
+6% risk-reduction threshold: halve normal new-trade risk unless configuration is stricter.
+8% defensive mode: only highest-quality validated setups if allowed; consider zero new risk.
+10% strategy/live deployment suspension review.
+
+CALCULATION
+Track peak equity, current equity, current drawdown, max drawdown, drawdown duration, and recovery duration. Use realized plus open-risk awareness; do not hide danger by focusing only on realized PnL.
+
+RECOVERY
+Risk returns gradually only after process review and measurable recovery, not immediately after one winning trade.

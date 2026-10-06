@@ -1,0 +1,32 @@
+POSITION SIZING
+
+BASE FORMULA
+risk_dollars = portfolio_equity × allowed_risk_pct
+price_risk_per_unit = abs(entry - stop) adjusted for contract size/product mechanics
+theoretical_size = risk_dollars / price_risk_per_unit
+
+EXECUTABLE SIZE
+Reduce theoretical size when needed for:
+- estimated commissions
+- expected slippage/spread
+- stop execution uncertainty/gap buffer
+- liquidity/depth limits
+- correlated-cluster exposure
+- leverage/margin safety
+- product minimum/increment constraints
+Never increase above risk-derived size.
+
+RISK TIERS
+Default mapping:
+C quality: 0.25%
+B quality: 0.35–0.50%
+A quality: 0.50%
+A+ exceptional validated setup: up to 0.75%
+Weak/experimental/unvalidated outside permission: 0%
+Drawdown/loss-streak/strategy-health modifiers can only reduce these.
+
+PORTFOLIO EQUITY
+Use the effective dedicated trading portfolio equity, not total unrelated personal assets.
+
+STOP DISTANCE
+Set stop/invalidation first. If stop distance makes size impractically small or violates product increments, skip trade rather than distort the stop.

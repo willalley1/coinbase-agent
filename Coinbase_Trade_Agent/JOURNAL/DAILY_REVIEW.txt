@@ -1,0 +1,6 @@
+DAILY REVIEW
+
+Report: starting/ending equity, realized and unrealized PnL, net R, current drawdown, trades by strategy, fees/slippage/funding, win/loss count, loss streak, rule violations, open risk, correlated exposure, missed/cancelled orders, execution incidents, and strategy health changes.
+
+Assign next-session state: NORMAL / CAUTION / REDUCED_RISK / DEFENSIVE / HALTED.
+No “make it back tomorrow” targets.

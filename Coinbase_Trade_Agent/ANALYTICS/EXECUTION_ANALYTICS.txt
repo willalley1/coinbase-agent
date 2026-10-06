@@ -1,0 +1,15 @@
+EXECUTION ANALYTICS
+
+TRACK PER TRADE
+planned vs actual entry, expected vs actual slippage, expected vs actual fee, requested vs filled size, fill delay, maker/taker indicator, partial-fill behavior, cancelled/missed entries, order errors, stop fill deviation, exit slippage.
+
+AGGREGATE
+- fee drag by strategy/product
+- slippage by volatility/liquidity/time of day
+- maker fill rate and missed-opportunity cost
+- market-order execution quality
+- partial-fill incidence
+- stop execution gaps
+
+DECISION USE
+Determine whether a strategy lacks edge or its execution is destroying edge. Prefer execution improvements that preserve strategy hypothesis; revalidate after material execution changes.

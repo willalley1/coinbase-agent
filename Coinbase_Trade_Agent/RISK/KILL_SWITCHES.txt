@@ -1,0 +1,22 @@
+KILL SWITCHES
+
+TRIGGERS THAT BLOCK NEW RISK
+- daily loss limit reached
+- hard drawdown state reached
+- four consecutive losses pending diagnosis
+- account/order/position state unknown
+- market data stale or internally conflicting
+- duplicate-order ambiguity
+- abnormal spread or insufficient liquidity
+- position size cannot be verified
+- derivatives stop/liquidation relation unsafe
+- unexpected account balance change
+- strategy status SUSPENDED / QUARANTINED
+- severe tool failure affecting state certainty
+- extreme disorder outside strategy permissions
+
+ACTIONS
+Set trading state to HALTED or DEFENSIVE as specified, cancel invalid optional entries, reconcile current exposure, and document the trigger. A kill switch cannot be disabled by a strategy or a high signal score.
+
+RESET
+Reset only after the cause is understood and reset criteria in the relevant risk/incident file are met. Hard-limit changes require user authorization.

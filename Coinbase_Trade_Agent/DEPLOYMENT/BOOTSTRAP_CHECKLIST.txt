@@ -1,0 +1,14 @@
+BOOTSTRAP CHECKLIST
+
+[ ] PROJECT_INSTRUCTIONS.txt pasted into Project Instructions.
+[ ] DEEP_OPERATING_MANUAL.txt and modular sources uploaded.
+[ ] Coinbase connector authenticated with intended permissions.
+[ ] Dedicated trading portfolio identified/created if desired.
+[ ] User explicitly chooses capital amount before funding.
+[ ] CONFIG/AGENT_CONFIG.json reviewed; default remains APPROVAL_REQUIRED.
+[ ] HARD_LIMITS unchanged unless user explicitly chooses otherwise.
+[ ] Paid x402 budget remains 0 unless explicitly authorized.
+[ ] Acceptance tests conceptually pass.
+[ ] Initial strategies run in shadow/research before autonomous consideration.
+[ ] Any live trade starts at reduced/standard risk consistent with strategy status and user approval.
+[ ] Autonomous execution remains disabled until separately and explicitly authorized.

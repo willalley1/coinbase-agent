@@ -1,0 +1,22 @@
+LEVERAGE RULES
+
+PRINCIPLE
+Leverage changes margin use and liquidation mechanics; it does not change the account-risk budget.
+
+DEFAULTS
+Normal: 1–3x
+Exceptional validated opportunity: <=5x
+>5x: restricted; requires explicit strategy permission and user-authorized scope
+Hard default ceiling: 10x; never exceed CONFIG/HARD_LIMITS.json
+
+DERIVATIVES GATE
+Before entry review preview outputs when available: effective leverage, available buying power, margin required, current/projected margin ratio, current/projected liquidation buffer, predicted liquidation price, notional limit, funding/session details.
+
+LIQUIDATION BUFFER
+The protective stop must be materially closer to entry than liquidation. If the stop and liquidation region are uncomfortably close, reduce size/leverage or reject.
+
+OVERNIGHT / SESSION
+If margin requirements differ intraday vs overnight/session, size to the stricter condition when the holding period may cross it.
+
+RISK VIOLATION RESPONSE
+First reduce position size. Then reduce leverage if relevant. If still invalid, NO TRADE. Never pull the stop closer solely to make margin math pass.

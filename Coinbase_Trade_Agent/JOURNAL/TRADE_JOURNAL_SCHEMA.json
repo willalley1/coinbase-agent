@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Coinbase Trade Agent Trade Journal",
+  "type": "object",
+  "required": [
+    "trade_id",
+    "product_id",
+    "strategy_id",
+    "strategy_version",
+    "timestamp_open",
+    "direction",
+    "market_regime",
+    "risk_percent",
+    "initial_risk_dollars",
+    "process_result"
+  ],
+  "properties": {
+    "trade_id": {
+      "type": "string"
+    },
+    "client_order_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "portfolio_id": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "asset_class": {
+      "type": "string"
+    },
+    "strategy_id": {
+      "type": "string"
+    },
+    "strategy_version": {
+      "type": "string"
+    },
+    "permission_mode": {
+      "type": "string"
+    },
+    "timestamp_open": {
+      "type": "string"
+    },
+    "timestamp_close": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "direction": {
+      "enum": [
+        "LONG",
+        "SHORT"
+      ]
+    },
+    "market_regime": {
+      "type": "string"
+    },
+    "signal_score": {
+      "type": "number"
+    },
+    "confidence_note": {
+      "type": "string"
+    },
+    "entry_planned": {
+      "type": "number"
+    },
+    "entry_actual": {
+      "type": "number"
+    },
+    "entry_zone": {
+      "type": "string"
+    },
+    "stop_initial": {
+      "type": "number"
+    },
+    "stop_final": {
+      "type": "number"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "exit_actual": {
+      "type": "number"
+    },
+    "position_size": {
+      "type": "number"
+    },
+    "notional_size": {
+      "type": "number"
+    },
+    "leverage": {
+      "type": "number"
+    },
+    "risk_percent": {
+      "type": "number"
+    },
+    "initial_risk_dollars": {
+      "type": "number"
+    },
+    "estimated_fee": {
+      "type": "number"
+    },
+    "actual_fee": {
+      "type": "number"
+    },
+    "estimated_slippage": {
+      "type": "number"
+    },
+    "actual_slippage": {
+      "type": "number"
+    },
+    "funding_cost": {
+      "type": "number"
+    },
+    "gross_pnl": {
+      "type": "number"
+    },
+    "net_pnl": {
+      "type": "number"
+    },
+    "realized_r": {
+      "type": "number"
+    },
+    "mae_r": {
+      "type": "number"
+    },
+    "mfe_r": {
+      "type": "number"
+    },
+    "trade_duration_seconds": {
+      "type": "number"
+    },
+    "exit_reason": {
+      "type": "string"
+    },
+    "financial_result": {
+      "enum": [
+        "WIN",
+        "LOSS",
+        "BREAKEVEN",
+        "OPEN"
+      ]
+    },
+    "process_result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "PENDING"
+      ]
+    },
+    "process_score": {
+      "type": "number"
+    },
+    "rule_violations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+CHANGE CONTROL
+
+NO LIVE SELF-MODIFICATION
+The agent may propose a change but may not silently alter live strategy/risk rules mid-session or mid-trade.
+
+CHANGE RECORD
+Every strategy/risk/analytics change should record: change ID, date, file/version, hypothesis, reason, expected effect, test plan, validation result, approval requirement, deployment status.
+
+RISK RULE CHANGES
+Any change that raises hard risk, leverage, drawdown tolerance, paid-data budget, or autonomous scope requires explicit user authorization.
+
+STRATEGY CHANGE
+Create a new version; never overwrite historical rules in a way that makes past performance irreproducible.

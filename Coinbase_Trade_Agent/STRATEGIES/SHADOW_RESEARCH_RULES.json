@@ -1,0 +1,12 @@
+{
+  "version": "shadow_r1",
+  "status": "UNVALIDATED_RESEARCH",
+  "authority": "SHADOW/strategies.py; exact frozen research implementation, not original v1",
+  "feature_parameters": {"ema": [20, 50], "atr": 14, "rsi": 14, "structure": 20, "warmup": 100},
+  "entry": "fresh ask, reject > trigger close + 0.25 ATR",
+  "protection": "structural invalidation minus 0.25 ATR; 2R target except range midpoint/reversal EMA20",
+  "fee_gate": "net target reward / total cost-adjusted stop risk >= 1.5",
+  "maker_fill_policy": "NOT_SIMULATED without queue/trade-through evidence",
+  "signal_scores": "uncalibrated ranking, never probabilities",
+  "live_permission": false
+}

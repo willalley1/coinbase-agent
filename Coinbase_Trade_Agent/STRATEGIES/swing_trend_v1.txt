@@ -1,0 +1,28 @@
+SWING_TREND v1
+STATUS: SHADOW
+HYPOTHESIS: Higher-timeframe directional trends can support multi-hour/day positions entered on 4H/1H pullbacks or break-and-retests with lower turnover and larger expected move than intraday strategies.
+
+VALID REGIMES: 1D/4H directional trend.
+INVALID: broad high-volatility disorder, uncertain event regime, illiquid product.
+TIMEFRAMES: 1D macro, 4H primary trend/setup, 1H trigger.
+
+SETUP
+- 1D/4H structure aligned.
+- Pullback/retest preserves major trend structure.
+- Volatility supports stop distance and position size.
+- Funding/carry and overnight/session margin impact acceptable.
+
+ENTRY
+1H confirmation at structurally favorable location; avoid late extension.
+
+STOP
+Beyond 4H thesis invalidation with volatility buffer; position size reduced accordingly.
+
+TARGET
+Higher-timeframe structure/liquidity objective. Allow runner/trailing when trend quality remains high.
+
+RISK CAP
+0.50%. Leverage should generally be lower than intraday due holding-period gap/funding risk.
+
+FAILURES
+Daily/4H trend break, adverse event/funding shift, margin/overnight rules make holding risk unacceptable.

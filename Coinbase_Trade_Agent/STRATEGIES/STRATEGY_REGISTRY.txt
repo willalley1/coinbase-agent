@@ -1,0 +1,14 @@
+STRATEGY REGISTRY — INITIAL LIBRARY
+
+All initial strategies start without autonomous live permission. Status reflects research/shadow readiness, not proven profitability.
+
+ID | VERSION | STATUS | PRIMARY REGIME | DEFAULT RISK CAP
+TREND_PULLBACK | v1 | SHADOW | strong/weak directional trend | 0.50%
+MOMENTUM_CONTINUATION | v1 | SHADOW | strong directional momentum / expansion | 0.50%
+CONFIRMED_BREAKOUT | v1 | SHADOW | compression -> expansion | 0.50%
+RANGE_MEAN_REVERSION | v1 | SHADOW | stable range / low-to-normal vol | 0.35%
+EXHAUSTION_REVERSAL | v1 | RESEARCH | exhaustion + verified reversal | 0.25%
+SWING_TREND | v1 | SHADOW | 4H/1D directional trend | 0.50%
+
+PROMOTION
+See LEARNING/STRATEGY_LIFECYCLE.txt. No strategy becomes autonomous merely because this file exists.

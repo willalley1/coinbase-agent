@@ -1,0 +1,11 @@
+POSITION MANAGEMENT WORKFLOW
+
+At each material review point:
+- verify actual position and open protective orders
+- reassess whether original thesis remains valid
+- apply only strategy-defined stop/target/trailing logic
+- do not widen risk emotionally
+- account for funding/session/event changes
+- update unrealized risk/correlation
+- if position becomes dangerous/unintended, prioritize risk reduction
+- after exit, reconcile fills/fees and journal
